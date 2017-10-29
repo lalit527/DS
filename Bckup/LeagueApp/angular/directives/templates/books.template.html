@@ -1,0 +1,83 @@
+
+<table id="characters-ul" ng-table="mainCtrl.tableBooks" class="table table-hover table-condensed" show-filter="true">
+                        
+                      
+                   <!-- <tr ng-click="mainCtrl.goToDetail(data.url)" >
+
+        <td title="'Name'" filter="{name: 'text'}" sortable="'name'" ><i class="fa fa-female" aria-hidden="true" style="font-size:24px;color:red" ng-if="data.gender == 'Female'"></i>
+      <i class="fa fa-male" aria-hidden="true" style="font-size:24px;color:blue" ng-if="data.gender == 'Male'"></i>{{data.name}}</td>
+  <td title="'Title'" sortable="'title[0]'">{{data.title[0]}}</td><td title="'aliases'" sortable="'aliases'">{{data.aliases[0]}}</td>
+  <td title="'born'" sortable="'born'">{{data.born}}</td><td>{{data.died}}</td>
+</tr> -->
+<tr ng-click="mainCtrl.goToDetail(data.url)" ng-repeat="data in $data">
+    <td title="'Name'" filter="{name: 'text'}" sortable="'name'" ><i class="fa fa-book" aria-hidden="true" style="font-size:24px;color:red"></i>{{data.bookName}}</td>
+    <td title="'Author'" filter="{author: 'text'}" sortable="'author'" >{{data.authors[0]}}</td>
+    <td title="'ReleaseDate'" filter="{released: 'text'}" sortable="'released'" >{{data.released | date:medium}}</td>
+</tr>
+</table>
+
+
+<!-- <li ng-click="mainCtrl.goToDetail(data.url)">
+    <i class="fa fa-book" aria-hidden="true" style="font-size:48px;color:red"></i><br/>
+    {{data.name}}<br/>
+    {{data.authors[0]}}
+    {{data.released}}<br/>
+    <hr/>
+</li> -->
+
+<!-- <div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">GOT BOOKS</h3>
+  </div>
+  <div class="panel-body">
+     <ul>
+        <li ng-repeat="book in mainCtrl.booksArr" ng-click="mainCtrl.goToDetail(book.type, '1')">
+        {{book}}
+            {{book.type}}<br/>
+            {{book.name}}<br/>
+            {{book.authors[0]}}
+            {{book.released}}<br/>
+            <hr/>
+        </li>
+    </ul>
+  </div>
+</div> -->
+
+
+<!-- About Section -->
+<!-- <section id="books" class="container content-section text-center">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+                    <h2>Books</h2>
+                    <ul>
+                        <li ng-repeat="book in mainCtrl.booksArr" ng-click="mainCtrl.goToDetail(book.url)">
+                            <i class="fa fa-book" aria-hidden="true" style="font-size:48px;color:red"></i><br/>
+                            {{book.name}}<br/>
+                            {{book.authors[0]}}
+                            {{book.released}}<br/>
+                            <hr/>
+                        </li>
+                    </ul>
+            <div flex-xs flex-gt-xs="50" layout="column">
+              <md-card md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+                <md-card-title>
+                  <md-card-title-text>
+                    <span class="md-headline">Card with image</span>
+                    <span class="md-subhead">Small</span>
+                  </md-card-title-text>
+                  <md-card-title-media>
+                    <div class="md-media-sm card-media"></div>
+                  </md-card-title-media>
+                </md-card-title>
+                <md-card-actions layout="row" layout-align="end center">
+                  <md-button>Action 1</md-button>
+                  <md-button>Action 2</md-button>
+                </md-card-actions>
+              </md-card>
+            </div>
+        </div>
+    </div>
+</section> -->
+
+
+

@@ -1,0 +1,62 @@
+<div class="main-con">
+<section id="books" class="container content-section text-center">
+    <div class="row books">
+        <div class="col-lg-8 col-lg-offset-2 ">
+                    
+                    <!-- <ul id="books-ul">
+                        
+                    </ul> -->
+                    <div class="table-responsive" id="books-ul">          
+                     <all-books></all-books>
+                    </div>
+        </div>
+    </div>
+</section>
+
+<section id="characters" class="content-section">
+        <div class="container">
+            <div class="col-lg-8 col-lg-offset-2">
+                
+                <!-- <ul id="characters-ul">
+                    
+                </ul> -->
+                 <div class="table-responsive" id="characters-ul">          
+                    <all-characters></all-characters> 
+                    </div>
+               <!--  <button ng-click="mainCtrl.getAllCharacters(mainCtrl.charcUrl, mainCtrl.characters, mainCtrl.dataPerRequest)">Get More Characters</button> -->
+            </div>
+        </div>
+</section>
+
+<section id="houses" class="container content-section text-center">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <div class="table-responsive" id="house-ul">          
+              
+            <all-houses></all-houses>
+        </div>
+    </div>
+</section>
+
+<!-- <all-books></all-books>
+<all-characters></all-characters> 
+<all-houses></all-houses>-->
+ <!-- <div ng-repeat="data in mainCtrl.allData|orderBy:sortData">  -->
+    <!-- <all-books ng-if="data.type == 'books'"></all-books> -->
+
+    <!-- <all-characters ng-if="data.type == 'characters'"></all-characters>   -->
+    
+    <!--  <button ng-click="mainCtrl.getAllBooks(mainCtrl.bookUrl, mainCtrl.books, mainCtrl.dataPerRequest)">Get More Books</button> -->
+    
+    
+    <!-- <ul>
+        <li ng-repeat="allData in mainCtrl.allData">
+            {{allData.name}}<br/>
+            {{allData.url}}<br/>
+            {{allData.type}}
+        </li>
+    </ul>
+    <button ng-click="mainCtrl.getAllData(mainCtrl.bookUrl, mainCtrl.books, mainCtrl.charcUrl, mainCtrl.characters, mainCtrl.houseUrl, mainCtrl.houses, mainCtrl.dataPerRequest)">Get More Data</button>
+    -->
+<!-- </div> -->
+</div>

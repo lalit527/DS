@@ -1,0 +1,70 @@
+
+function smallestCommons(arr) {
+  l = arr[0];
+  r = arr[1];
+  ele = [];
+  if(l>r){
+    var tmp = l;
+    l = r;
+    r = tmp;
+  }
+  var j =-1;
+  for(var i=l; i<=r; i++){
+    ele[++j] = i;
+  }
+  //return ele;
+  console.log('1');
+  var rem = [];
+  j=-1;
+  var flag =0;
+  for(var k=2;k<=ele[ele.length-1];k++){
+    var divde = k;
+    flag = 0;
+    if(ele[k] != 1){
+      for(var m=0;m<ele.length;m++){
+         if(ele[m]%divde === 0 ){
+            //return ele[m]/ele[k]; 
+            //rem[++j] = ele[k];
+            flag = 1;
+            ele[m] = ele[m]/divde;
+         }else{
+            ele[m] = ele[m];
+         }
+       }
+      if (flag == 1){
+         rem[++j] = divde; 
+      }
+    }
+        
+  }
+  var newEle = [];
+  var z=0;
+  for(i=0;i<ele.length;i++){
+    flag =1;
+    for(k=0;k<newEle.length;k++){
+      if(newEle[k]!=ele[i]){
+        flag=1;
+      }else{
+        flag = 0;
+        break;
+      }
+    }
+    if(flag == 1){
+      newEle[z++] = ele[i];
+    }
+  }
+  for(i=0;i<ele.length;i++){
+    if(ele[i]!=1){
+      rem[++j] = ele[i];
+    }
+  }
+  var sum = 1;
+  for(i=0;i<rem.length;i++){
+    sum = sum * rem[i];
+  }
+  
+  return newEle;
+}
+
+
+smallestCommons([1,13]);

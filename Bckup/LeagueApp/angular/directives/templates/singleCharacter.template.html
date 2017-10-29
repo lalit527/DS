@@ -1,0 +1,38 @@
+<div class="container-fluid">
+<div class="row">
+    {{detailCtrl.allDetails.name}}
+    {{detailCtrl.allDetails.gender}}
+    {{detailCtrl.allDetails.culture}}
+    {{detailCtrl.allDetails.born}}
+    {{detailCtrl.allDetails.died}}
+    {{detailCtrl.allDetails.playedBy[0]}}
+    <ul>
+          <li ng-repeat="aliases in detailCtrl.allDetails.aliases">
+              {{aliases}}<br/>
+              <hr/>
+          </li>
+    </ul>
+    <ul>
+          <li ng-repeat="titles in detailCtrl.allDetails.titles">
+              {{titles}}<br/>
+              <hr/>
+          </li>
+    </ul>
+      <ul>
+          <li ng-repeat="books in detailCtrl.allDetails.swornMembers" ng-click="detailCtrl.goToDetail(books)">
+              <!-- {{detailCtrl.allDetails.characters[characters]}}<br/> -->
+              {{books}}
+              <hr/>
+          </li>
+      </ul>
+      <!-- <ul>
+          <li ng-repeat="book in mainCtrl.booksArr" ng-click="mainCtrl.goToDetail(book.type, book.id)">
+              <i class="fa fa-book" aria-hidden="true" style="font-size:48px;color:red"></i><br/>
+              {{book.name}}<br/>
+              {{book.authors[0]}}
+              {{book.released}}<br/>
+              <hr/>
+          </li>
+      </ul> -->
+</div>
+</div>
