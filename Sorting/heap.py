@@ -1,6 +1,6 @@
 def maxHeapify(arr, n, index):
-    left = 2* index
-    right = 2* index + 1
+    left = 2* index + 1
+    right = 2* index + 2
 
     if left < n and arr[index] < arr[left]: 
         largest = left
@@ -26,8 +26,8 @@ def heapSort(arr):
     buildMaxHeap(arr)
     n = len(arr)
     for i in range(n-1, 0, -1):
+    #for i in range(n-1, 0, -1):
         arr[i], arr[0] = arr[0], arr[i]
-        n = n - 1
         maxHeapify(arr, i, 0)
 
 arr = [ 12, 11, 13, 5, 6, 7]
