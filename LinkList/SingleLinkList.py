@@ -20,6 +20,22 @@ class SingleLinkList(object):
                 t = t.nextnode
             t.nextnode = node
 
+    def deleteNode(self, data):
+        temp = self.head
+        prev = self.head
+        if self.head == None:
+            return 0
+
+        while temp.value != data:
+            prev = temp
+            temp = temp.nextnode
+        
+        if temp.value == data:
+            if temp == self.head:
+                self.head = temp.nextnode
+            prev.nextnode = temp.nextnode
+
+
     def printNode(self):
         curr = self.head
         while curr:
@@ -31,4 +47,7 @@ l = SingleLinkList()
 l.add(1)
 l.add(2)
 l.add(3)
+l.deleteNode(1)
+l.deleteNode(2)
+l.deleteNode(3)
 l.printNode()
