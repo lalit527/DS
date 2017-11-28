@@ -34,7 +34,21 @@ class SingleLinkList(object):
             if temp == self.head:
                 self.head = temp.nextnode
             prev.nextnode = temp.nextnode
+    
+    def reverseNode(self):
+        temp = self.head
+        previousNode = None
+        nextNode = None
 
+        while temp:
+            #print(temp.value)
+            nextNode = temp.nextnode
+            temp.nextnode = previousNode
+
+            previousNode = temp
+            temp = nextNode
+        self.head = previousNode
+        
 
     def printNode(self):
         curr = self.head
@@ -47,7 +61,6 @@ l = SingleLinkList()
 l.add(1)
 l.add(2)
 l.add(3)
-l.deleteNode(1)
-l.deleteNode(2)
-l.deleteNode(3)
+l.add(4)
+l.reverseNode()
 l.printNode()
