@@ -70,7 +70,26 @@ class SingleLinkList(object):
             previous = current
             current = current.nextnode
         print(buffer)
-  
+
+    def getMiddleEle(self):
+        current = self.head
+        previous = self.head
+        while current.nextnode:
+            current = current.nextnode.nextnode
+            previous = previous.nextnode
+
+        print(previous.value)
+
+
+    def deleteMiddleEle(self):
+        current = self.head
+        previous = self.head
+        prevNode = None
+        while current.nextnode:
+            current = current.nextnode.nextnode
+            prevNode = previous     
+            previous = previous.nextnode  
+        prevNode.nextnode = previous.nextnode     
 
 l = SingleLinkList()
 l.add(1)
@@ -78,6 +97,8 @@ l.add(2)
 l.add(1)
 l.add(4)
 l.add(2)
-l.deleteDup()
+#l.deleteDup()
 #l.reverseNode()
+l.getMiddleEle()
+l.deleteMiddleEle()
 l.printNode()
