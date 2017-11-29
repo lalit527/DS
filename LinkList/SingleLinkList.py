@@ -49,18 +49,35 @@ class SingleLinkList(object):
             temp = nextNode
         self.head = previousNode
         
-
+    def nthToLast(self, n):
+        pass
+       
     def printNode(self):
         curr = self.head
         while curr:
             print(curr.value)
-            curr = curr.nextnode        
+            curr = curr.nextnode   
+
+    def deleteDup(self):
+        buffer = []
+        current = self.head
+        previous = None
+        while current:
+            if current.value in buffer:
+                previous.nextnode = current.nextnode
+            else:
+                buffer.append(current.value)
+            previous = current
+            current = current.nextnode
+        print(buffer)
   
 
 l = SingleLinkList()
 l.add(1)
 l.add(2)
-l.add(3)
+l.add(1)
 l.add(4)
-l.reverseNode()
+l.add(2)
+l.deleteDup()
+#l.reverseNode()
 l.printNode()
