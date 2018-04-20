@@ -38,6 +38,11 @@ class DynamicArray:
 Array = DynamicArray()
 Array.add(1)
 
-print(Array.__length__)
+print(Array.__length__())
+print(Array.capacity)
+
+Array.add(2)
+
+print(Array.__length__())
 print(Array.capacity)
 
