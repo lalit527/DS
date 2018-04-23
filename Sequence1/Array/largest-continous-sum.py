@@ -53,16 +53,16 @@ def largestContinousSum3(arr):
             max_so_far = max_ending_here
             start = s
             end = index
-    print("Maximum contiguous sum is", max_so_far)
-    print("Starting Index", start)
-    print("Ending Index", end)
+    print("largest continous sum is        ", max_so_far)
+    print("Starting Index for continous sum", start)
+    print("Ending Index for continous sum  ", end)
     print(max_ending_here)
     return max_so_far
 
 
 
-arr = [1, 5, 7, -10, 2, 9, 5, 6]
-#a = [-2, -3, 4, -1, -2, 1, 5, -3]
-print(largestContinousSum3(arr))
+#arr = [1, 5, 7, -10, 2, 9, 5, 6]
+a = [-2, -3, 4, -1, -2, 1, 5, -3]
+print(largestContinousSum3(a))
 
 
