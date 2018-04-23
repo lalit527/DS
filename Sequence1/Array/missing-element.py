@@ -1,3 +1,6 @@
+##############################################
+# Operation 1: finding missing element ##
+##############################################
 def findMissing(arr1, arr2):
     arr1.sort()
     arr2.sort()
@@ -8,10 +11,12 @@ def findMissing(arr1, arr2):
 
     return arr1[-1]
 
-arr1 = [5, 7, 8]
-arr2 = [5,8]
-#print(findMissing(arr1, arr2))
 
+
+##############################################
+# Operation 2: finding missing element
+# using dictonary ##
+##############################################
 # finding the missing element
 from collections import defaultdict
 def findMissing2(arr1, arr2):
@@ -24,8 +29,25 @@ def findMissing2(arr1, arr2):
         else:
             d[num] -= 1
 
+
+##############################################
+# Operation 2: finding missing element
+# using XOR operation ##
+##############################################
+
+def findMissingXOR(arr1, arr2):
+    result = 0
+    for num in arr1 + arr2:
+        print("num", num)
+        result ^= num
+        print("result", result)
+
+    return result
+
 arr1 = [5, 7, 8]
 arr2 = [5,8]
-print("The missing element is", findMissing2(arr1, arr2))
+print("The missing element is", findMissingXOR(arr1, arr2))
+
+
 
 
