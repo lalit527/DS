@@ -22,6 +22,3 @@ def balanceParen(s):
 		return True
 
 	return False
-
-
-print(balanceParen('([}[[[[]]'))
