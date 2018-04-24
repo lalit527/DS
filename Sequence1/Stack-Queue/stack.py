@@ -9,14 +9,14 @@ class Stack:
         
     
     def pop(self):
-        if self.top < 0:
+        if self.isEmpty():
             return Exception("Stack is empty") 
         tmp = self.top
         self.top -= 1
         return self.stack[tmp]
     
     def peek(self):
-        if self.top < 0:
+        if self.isEmpty():
             return Exception("Stack is empty") 
         else:
             return self.stack[self.top]
@@ -26,6 +26,11 @@ class Stack:
 
 stack = Stack()
 stack.push(1)
+stack.push(2)
+stack.push(3)
+stack.push(4)
+print(stack.pop())
+print(stack.pop())
 print(stack.pop())
 print(stack.pop())
     
