@@ -28,10 +28,10 @@ class SingleLinkList:
             tmp = tmp.next
 
     def getHead(self):
-        return self.head.data
+        return self.head
 
     def getTail(self):
-        return self.tail.data
+        return self.tail
 
 sl = SingleLinkList()
 sl.addToStart(1)
