@@ -24,13 +24,13 @@ class Stack:
     def isEmpty(self):
         return self.top == -1
 
-stack = Stack()
-stack.push(1)
-stack.push(2)
-stack.push(3)
-stack.push(4)
-print(stack.pop())
-print(stack.pop())
-print(stack.pop())
-print(stack.pop())
+# stack = Stack()
+# stack.push(1)
+# stack.push(2)
+# stack.push(3)
+# stack.push(4)
+# print(stack.pop())
+# print(stack.pop())
+# print(stack.pop())
+# print(stack.pop())
     
