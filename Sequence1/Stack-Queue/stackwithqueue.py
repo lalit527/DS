@@ -1,15 +1,17 @@
+from stack import Stack
+
 class QueueWithStack:
     def __init__(self):
-        self.stack1 = []
-        self.stack2 = []
+        self.stack1 = Stack()
+        self.stack2 = Stack()
     
     def push(self, n):
-        self.stack1.append(n)
+        self.stack1.push(n)
 
     def pop(self):
-        if len(self.stack2) == 0:
-            for i in range(len(self.stack1)-1, -1, -1):
-                self.stack2.append(self.stack1[i])
+        if self.stack2.isEmpty():
+            while(self.stack1.isEmpty() == False):
+                self.stack2.push(self.stack1.pop())
 
         return  self.stack2.pop()
     
