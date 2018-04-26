@@ -14,7 +14,7 @@ def reverseList(List):
             nextNode = nextNode.next
     List.head = prevNode
 
-    tmp = prevNode
+    # tmp = prevNode
     # while tmp != None:
     #     print("current", tmp.data)
     #     tmp = tmp.next
