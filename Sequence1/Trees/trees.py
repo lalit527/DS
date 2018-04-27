@@ -11,7 +11,7 @@ class Tree:
 
     def insertLeft(self, n):
         if self.root.left == None:
-            self.root.left = Tree(n)
+            self.root.left = Node(n)
         else:
             tmp = Node(n)
             tmp.left = self.root.left
@@ -34,7 +34,30 @@ class Tree:
     def getRightChild(self):
         return self.root.right
 
+    def inOrder(self, root):
+        if root != None:
+            self.inOrder(root.left)
+            print(root.data)
+            self.inOrder(root.right)
+
+    def preOrder(self, root):
+        if root != None:
+            print(root.data)
+            self.preOrder(root.left)
+            self.preOrder(root.right)
+
+    def postOrder(self, root):
+        if root != None:
+            self.postOrder(root.left)
+            self.postOrder(root.right)
+            print(root.data)
+
 t = Tree(5)
 t.insertLeft(2)
-print(t.getRoot().left)
+root = t.getRoot()
+t.inOrder(root)
+print('#######################')
+t.preOrder(root)
+print('#######################')
+t.postOrder(root)
 # print(t.getLeftChild().left.data)
