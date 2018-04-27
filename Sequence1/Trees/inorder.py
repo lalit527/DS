@@ -34,7 +34,6 @@ def inOrderRec2(root):
         if tmp.left != None:
             stack.append(tmp.left)
             tmp = tmp.left
-        else:
         
         data = stack.pop()
         print(data.data)
