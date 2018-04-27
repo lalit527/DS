@@ -52,8 +52,10 @@ class Tree:
             self.postOrder(root.right)
             print(root.data)
 
+'''
 t = Tree(5)
 t.insertLeft(2)
+t.insertRight(7)
 root = t.getRoot()
 t.inOrder(root)
 print('#######################')
@@ -61,3 +63,4 @@ t.preOrder(root)
 print('#######################')
 t.postOrder(root)
 # print(t.getLeftChild().left.data)
+'''
