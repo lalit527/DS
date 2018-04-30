@@ -57,8 +57,6 @@ class BinaryTree:
     def _delete(self, root, n):
         if root is None:
             return root
-        else:
-            print(root.data)
 
         if n < root.data:
             root.left = self._delete(root.left, n)
@@ -67,12 +65,12 @@ class BinaryTree:
         else:
             if root.left is None:
                 return root.right
-                # root = None
-                # return tmp
+                root = None
+                return tmp
             elif root.right is None:
                 return root.left
-                # root = None
-                # return tmp
+                root = None
+                return tmp
             else:
                 tmp = self._successor(root)
                 root.data = tmp.data
