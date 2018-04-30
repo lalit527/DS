@@ -9,21 +9,21 @@ class Tree:
         root = Node(n)
         self.root = root
 
-    def insertLeft(self, n):
-        if self.root.left == None:
-            self.root.left = Node(n)
+    def insertLeft(self, root, n):
+        if root.left == None:
+            root.left = Node(n)
         else:
             tmp = Node(n)
-            tmp.left = self.root.left
+            tmp.left = root.left
             slef.root.left = tmp
 
-    def insertRight(self, n):
-        if self.root.right == None:
-            self.root.right = Node(n)
+    def insertRight(self, root, n):
+        if root.right == None:
+            root.right = Node(n)
         else:
             tmp = Node(n)
-            tmp.right = self.root.right
-            self.root.right = tmp
+            tmp.right = root.right
+            root.right = tmp
 
     def getRoot(self):
         return self.root
