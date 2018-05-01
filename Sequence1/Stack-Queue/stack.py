@@ -24,6 +24,13 @@ class Stack:
     def isEmpty(self):
         return self.top == -1
 
+    def length(self):
+        return self.top
+
+    def printStack(self):
+        for i in range(self.top, -1, -1):
+            print(self.stack[i])
+
 # stack = Stack()
 # stack.push(1)
 # stack.push(2)
