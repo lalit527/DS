@@ -41,6 +41,8 @@ class Graph:
         if t not in self.vertexList:
             nv = self.addVertex(t)
 
+        self.vertexList[f].addNeighbour(self.vertexList[t], cost)
+
     def getVertices(self):
         return self.vertexList.keys()
 
@@ -49,3 +51,10 @@ class Graph:
 
     def __contains__(self, n):
         return n in self.vertexList
+
+g = Graph()
+for i in range(6):
+    g.addVertex(i)
+
+
+print(g.vertexList)
