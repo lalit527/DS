@@ -8,23 +8,48 @@ def length(head):
     count += 1
   return count
 
-def findN(head, n):
-  if n > length(head):
-    return 
-  slowPtr = head
-  fastPtr = head
-  while n >= 0:
-    n -= 1
-    fastPtr = fastPtr.next
+def mergeList(head1, head2):
+  result = SingleLinkList()
+  return _mergeList(head1, head2, result)
 
-  while fastPtr is not None:
-    fastPtr = fastPtr.next
-    slowPtr = slowPtr.next
-  return slowPtr
+def _mergeList(head1, head2, result):
+  if head1 is None:
+    result.insert(head2.key)
+    return
+  if head2 is None:
+    result.insert(head1.key)
+    return
+  if head1.key < head2.key:
+    result.insert(head1.key)
+    result.next = _mergeList(head1.next, head2, result)
+  else:
+    result.insert(head2.key)
+    result.next = _mergeList(head1, head2.next, result)
+  return result
 
-s = SingleLinkList()
-arr = [1, 2, 3, 4, 5]
-for i in arr:
-  s.insert(i)
-node = findN(s.head, 6)
-print(node.key if node else None)
+def mergeInPlace(head1, head2):
+  result = None
+  if head1 is None:
+    return head2
+  if head2 is None:
+    return head1
+  if head1.key < head2.key:
+    result = head1
+    result.next = mergeInPlace(head1.next, head2)
+  else:
+    result = head2
+    result.next = mergeInPlace(head1, head2.next)
+  return result
+  
+ol = SingleLinkList()
+el = SingleLinkList()
+odd = [1, 3, 5, 7, 9]
+even = [2, 4, 6, 8, 10]
+for i in odd:
+  ol.insert(i)
+for i in even:
+  el.insert(i)
+# node = mergeList(ol.head, el.head)
+# node.printData()
+node = mergeInPlace(ol.head, el.head)
+ol.printData()
