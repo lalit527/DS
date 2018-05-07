@@ -27,4 +27,4 @@ s = SingleLinkList()
 arr = [1, 2, 3, 4, 5]
 for i in arr:
   s.insert(i)
-s.printData()
+# s.printData()
