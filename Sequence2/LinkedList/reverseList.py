@@ -14,20 +14,19 @@ def reverseList(head):
 
 def reverseN(head, n):
   if head is None:
-    return 
+    return head
+  fast = head.next
   prev = None
-  tmp = head.next
-  count = 1
-  while n >= count and head is not None:
+  count = 0
+  while count < n and head is not None:
     head.next = prev
     prev = head
-    head = tmp
-    if tmp:
-      tmp = tmp.next
+    head = fast
+    fast = fast.next if fast else None
     count += 1
   if head is not None:
     prev = prev.next
-    prev = reverseN(prev, n)
+    prev.next = reverseN(prev, n)
   return prev
 
 s = SingleLinkList()
