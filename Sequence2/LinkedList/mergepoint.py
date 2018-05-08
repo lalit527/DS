@@ -7,15 +7,6 @@ def length(head):
     tmp = tmp.next
     count += 1
   return count
-  
-def canMerge(head1, head2):
-  print("here")
-  l1 = length(head1)
-  l2 = length(head2)
-  if l1 == l2:
-    return True
-  return False
-
 
 def mergeCommonList(head1, head2):
   p = head1
