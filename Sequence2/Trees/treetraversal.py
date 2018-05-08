@@ -5,7 +5,7 @@ def inorder(root):
   if root:
     inorder(root.left)
     print(root.data)
-    inorder(root.data)
+    inorder(root.right)
 
 def preorder(root):
   if root:
@@ -31,3 +31,14 @@ def levelOrder(root):
       queue.append(node.left)
     if node.right is not None:
       queue.append(node.right)
+
+t = BinaryTree()
+t.insertLeft(5)
+t.insertLeft(4)
+t.insertLeft(3)
+t.insertRight(7)
+t.insertRight(9)
+t.insertLeftNode(7, 6)
+t.insertRightNode(9, 11)
+# print(t.root)
+levelOrder(t.root)

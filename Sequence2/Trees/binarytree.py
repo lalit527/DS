@@ -69,12 +69,3 @@ class BinaryTree:
       print(root.data)
       self._inorder(root.right)
 
-t = BinaryTree()
-t.insertLeft(5)
-t.insertLeft(4)
-t.insertLeft(3)
-t.insertRight(7)
-t.insertRight(9)
-t.insertLeftNode(7, 6)
-t.insertRightNode(9, 11)
-t.inorder()
