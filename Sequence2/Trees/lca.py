@@ -28,13 +28,13 @@ def lca(root, p, q):
 
   return None
 
-t = BinaryTree()
-t.insertLeft(5)
-t.insertLeft(4)
-t.insertLeft(3)
-t.insertRight(7)
-t.insertRight(9)
-t.insertLeftNode(7, 6)
-t.insertRightNode(9, 11)
-node = lca(t.root, 4, 7)
-print(node.data if node else None)
+# t = BinaryTree()
+# t.insertLeft(5)
+# t.insertLeft(4)
+# t.insertLeft(3)
+# t.insertRight(7)
+# t.insertRight(9)
+# t.insertLeftNode(7, 6)
+# t.insertRightNode(9, 11)
+# node = lca(t.root, 4, 7)
+# print(node.data if node else None)

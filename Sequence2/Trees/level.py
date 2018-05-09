@@ -18,12 +18,14 @@ def _level(root, node, level):
   if r > 0:
     return r
   return -1
-t = BinaryTree()
-t.insertLeft(5)
-t.insertLeft(4)
-t.insertLeft(3)
-t.insertRight(7)
-t.insertRight(9)
-t.insertLeftNode(7, 6)
-t.insertRightNode(9, 11)
-print(level(t.root, 11))
+
+
+# t = BinaryTree()
+# t.insertLeft(5)
+# t.insertLeft(4)
+# t.insertLeft(3)
+# t.insertRight(7)
+# t.insertRight(9)
+# t.insertLeftNode(7, 6)
+# t.insertRightNode(9, 11)
+# print(level(t.root, 11))
