@@ -29,6 +29,23 @@ def leftView(root):
       if len(queue) == 0:
         done = True
 
+class MaxLevel:
+  def __init__(self, value):
+    self.value = value
+
+def leftViewRec(root):
+  m = MaxLevel(-1)
+  _leftViewRec(root, 0, m)
+
+def _leftViewRec(root, level, maxlevel):
+  if root is None:
+    return
+  if maxlevel.value < level:
+    print(root.data)
+    maxlevel.value = level
+  _leftViewRec(root.left, level + 1, maxlevel)
+  _leftViewRec(root.right, level + 1, maxlevel)
+  return
   
 
 t = BinaryTree()
@@ -39,4 +56,4 @@ t.insertRight(7)
 t.insertRight(9)
 t.insertLeftNode(7, 6)
 t.insertRightNode(9, 11)
-leftView(t.root)
+leftViewRec(t.root)
