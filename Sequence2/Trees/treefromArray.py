@@ -34,8 +34,36 @@ def _buildTree(ino, pro, start, end, index):
 
   return node
 
+def buildTreeInPo(ino, poo):
+  index = Index()
+  length = len(ino)
+  start = 0
+  end = length - 1
+  index.value = end
+  root = _buildTreeInPo(ino, poo, start, end, index)
+
+def _buildTreeInPo(ino, poo, start, end, index):
+  if start > end:
+    return None
+  
+  node = Node(poo[index.value])
+  index.value += 1
+
+  if start == end:
+    return node
+  
+  inIndex = search(ino, start, end, node.data)
+
+  node.right = _buildTreeInPo(ino, poo, inIndex + 1, end, index)
+  node.left = _buildTreeInPo(ino, poo, start, inIndex - 1, index)
+
+  return node
 
 ino = ['D', 'B' ,'E', 'A', 'F', 'C']
 pro = ['A', 'B', 'D', 'E', 'C', 'F']
 tree = buidTree(ino, pro)
 tree.inorder()
+
+ino = [4, 8, 2, 5, 1, 6, 3, 7]
+poo = [8, 4, 5, 2, 6, 7, 3, 1]
+t = buildTreeInPo(ino, poo)
