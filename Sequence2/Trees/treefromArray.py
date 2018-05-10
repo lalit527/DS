@@ -41,13 +41,16 @@ def buildTreeInPo(ino, poo):
   end = length - 1
   index.value = end
   root = _buildTreeInPo(ino, poo, start, end, index)
+  t = BinaryTree()
+  t.root = root
+  return t
 
 def _buildTreeInPo(ino, poo, start, end, index):
   if start > end:
     return None
   
   node = Node(poo[index.value])
-  index.value += 1
+  index.value -= 1
 
   if start == end:
     return node
@@ -67,3 +70,4 @@ tree.inorder()
 ino = [4, 8, 2, 5, 1, 6, 3, 7]
 poo = [8, 4, 5, 2, 6, 7, 3, 1]
 t = buildTreeInPo(ino, poo)
+t.inorder()
