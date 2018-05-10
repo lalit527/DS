@@ -1,12 +1,23 @@
 from binarytree import BinaryTree, Node
 
+def height(root):
+  if root is None:
+    return 0
+  lh = height(root.left)
+  rh = height(root.right)
+  return 1 + max(lh, rh)
+
 def diameter(root, level = 0):
   if root is None:
-    return level
+    return 0
   
-  l = diameter(root.left, level + 1)
-  r = diameter(root.right, level + 1)
-  return level
+  lh = diameter(root.left)
+  rh = diameter(root.right)
+
+  ld = diameter(root.left)
+  rd = diameter(root.right)
+
+  return max(lh + rh + 1, ld + rd)
 
 
 t = BinaryTree()
