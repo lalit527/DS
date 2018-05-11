@@ -64,11 +64,11 @@ class BinaryTree:
             root.right = self._delete(root.right, n)
         else:
             if root.left is None:
-                return root.right
+                tmp = root.right
                 root = None
                 return tmp
             elif root.right is None:
-                return root.left
+                tmp = root.left
                 root = None
                 return tmp
             else:
