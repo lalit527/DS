@@ -41,6 +41,7 @@ class Heap:
       self.procDown(arr, n, smallest)
 
   def insert(self, n):
+    self.printHeap()
     self.data.append(n)
     size = len(self.data)
     self.procUp(self.data, size, size - 1)
@@ -51,12 +52,15 @@ class Heap:
       return None
     self.data[0], self.data[l-1] = self.data[l-1], self.data[0]
     min = self.data.pop()
-    self.procDown(self.data, l-2, 0)
+    self.procDown(self.data, l-1, 0)
     return min
   
   def printHeap(self):
     for i in self.data:
-      print(i)
+      print(i.data, end='')
+
+  def getSize(self):
+    return len(self.data)
 
 def merge(mat):
   heap = Heap()
@@ -64,6 +68,7 @@ def merge(mat):
   c = len(mat[0])
   result = []
   for i in range(len(mat)):
+    print(mat[i][0])
     data = mat[i][0]
     index = 0
     n = Node(data, index, i)
@@ -74,9 +79,9 @@ def merge(mat):
       break
     else:
       l = len(mat[min.identity])
-      if min.index < l:
+      if min.index < l - 1:
         result.append(min.data)
-        n = Node(mat[min.identity][min.index], min.index + 1, min.identity)
+        n = Node(mat[min.identity][min.index+1], min.index + 1, min.identity)
         heap.insert(n)
       else:
         result.append(min.data)
