@@ -14,6 +14,13 @@ class Heap:
     r = (index * 2) + 2
     return r
 
+  def buildMinHeap(self, arr):
+    self.data = arr
+    self.size = len(arr)
+    n = self.size
+    for i in range(n//2, -1, -1):
+      self.procDown(arr, n, i)
+
   def procDown(self, arr, n, index):
     l = self.getLeft(index)
     r = self.getRight(index)
@@ -23,7 +30,7 @@ class Heap:
     if r < n and arr[r] < arr[smallest]:
       smallest = r
     
-    if smallest != r:
+    if smallest != index:
       arr[index], arr[smallest] = arr[smallest], arr[index]
       self.procDown(arr, n, smallest)
 
@@ -42,19 +49,25 @@ class Heap:
     l = len(self.data)
     self.data[0], self.data[l-1] = self.data[l-1], self.data[0]
     min = self.data.pop()
-    self.procDown(self.data, l-1, 0)
+    self.procDown(self.data, l-2, 0)
     return min
   
   def printHeap(self):
     for i in self.data:
       print(i)
 
-h = Heap()
-h.insert(12)
-h.insert(11)
-h.insert(13)
-h.insert(5)
-h.insert(6)
-h.insert(7)
-print(h.getMin())
-h.printHeap()
+  def getHeap(self):
+    return self.data
+  
+  def getSize(self):
+    return len(self.data)
+
+# h = Heap()
+# h.insert(12)
+# h.insert(11)
+# h.insert(13)
+# h.insert(5)
+# h.insert(6)
+# h.insert(7)
+# print(h.getMin())
+# h.printHeap()
