@@ -47,6 +47,9 @@ class Heap:
 
   def getMin(self):
     l = len(self.data)
+    print(l)
+    if l < 1:
+      return None
     self.data[0], self.data[l-1] = self.data[l-1], self.data[0]
     min = self.data.pop()
     self.procDown(self.data, l-2, 0)
