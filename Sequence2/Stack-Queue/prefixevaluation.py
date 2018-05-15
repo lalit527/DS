@@ -12,7 +12,7 @@ def eval_postfix(exp):
   if n < 1:
     return None
   stack = Stack()
-  for i in range(n):
+  for i in range(n - 1, -1, -1):
     if isOperand(exp[i]):
       stack.push(exp[i])
     else:
@@ -25,5 +25,5 @@ def eval_postfix(exp):
   result = stack.pop()
   return result
 
-exp = '231*+9-'
+exp = '+9*26'
 print(eval_postfix(exp))
