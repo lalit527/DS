@@ -27,9 +27,9 @@ class Stack:
   def isEmpty(self):
     return self.top is None
 
-s = Stack()
-s.push(1)
-s.push(2)
-print(s.pop())
-print(s.pop())
-print(s.isEmpty())
+# s = Stack()
+# s.push(1)
+# s.push(2)
+# print(s.pop())
+# print(s.pop())
+# print(s.isEmpty())
