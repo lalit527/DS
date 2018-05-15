@@ -1,7 +1,7 @@
 from ctypes import py_object
 
 class Stack:
-  def __init__(self, capacity):
+  def __init__(self, capacity=16):
     self.capacity = capacity
     self.data = (capacity * py_object)()
     self.top = -1
@@ -24,6 +24,9 @@ class Stack:
     if self.top == -1:
       return None
     return self.data[self.top]
+  
+  def isEmpty(self):
+    return self.top == -1
     
 s = Stack(8)
 s.push(1)
