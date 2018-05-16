@@ -30,12 +30,12 @@ class Queue:
   def peek(self):
     return self.front.data if self.front else None
 
-q = Queue()
-q.enqueue(2)
-q.enqueue(3)
-q.enqueue(4)
-print(q.dequeue())
-print(q.dequeue())
-print(q.dequeue())
-print(q.dequeue())
-print(q.peek())
+# q = Queue()
+# q.enqueue(2)
+# q.enqueue(3)
+# q.enqueue(4)
+# print(q.dequeue())
+# print(q.dequeue())
+# print(q.dequeue())
+# print(q.dequeue())
+# print(q.peek())
