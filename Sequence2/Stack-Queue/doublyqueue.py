@@ -6,24 +6,26 @@ class DoubleQueue:
     self.data = (capacity * py_object)()
     self.front = -1
     self.rear = -1
+    self.size = 0
 
   def enqueueFront(self, n):
     if self.front == -1:
       self.front = 0
-    print(len(self.data))
-    for i in range(len(self.data) - 2, -1, -1):
+    for i in range(self.rear - 1, self.front - 1, -1):
       self.data[i+1] = self.data[i]
     self.data[0] = n
     self.rear += 1
+    self.size += 1
   
-  def enqueEnd(self):
+  def enqueueEnd(self, n):
     if self.front == -1:
       self.front = 0
     
     self.rear += 1
     self.data[self.rear] = n
+    self.size += 1
 
-  def dequeFront(self):
+  def dequeueFront(self):
     if self.front == -1:
       return Exception("Queue is Empty")
     
@@ -52,8 +54,8 @@ class DoubleQueue:
 q = DoubleQueue()
 q.enqueueFront(1)
 q.enqueueFront(2)
-q.enqueueBack(3)
-q.enqueueBack(4)
+q.enqueueEnd(3)
+q.enqueueEnd(4)
 print(q.peekFront())
 print(q.peekEnd())
     
