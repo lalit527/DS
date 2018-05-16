@@ -27,7 +27,7 @@ class DoubleQueue:
 
     def isFull(self):
         tmp = (self.rear+1) % self.capacity
-        return self.rear+1 == self.front
+        return tmp
 
     def isEmpty(self):
         return self.front > self.rear
