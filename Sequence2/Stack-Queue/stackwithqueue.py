@@ -1,4 +1,7 @@
 from queuelist import Queue
+class Result:
+  def __init__(self):
+    self.data = None
 
 class StackWithOneQueue:
   def __init__(self):
@@ -28,22 +31,29 @@ class StackWithOneQueue2:
   def push(self, n):
     self.queue.enqueue(n)
 
-  def pop(self):
-    if self.queue.isEmpty():
-      return
-    tmp = self.queue.dequeue()
+  def _pop(self, r):
     if not self.queue.isEmpty():
-      self.pop()
-      self.queue.enqueue(tmp)
-    else:
-      print('tmp', tmp)
-      return tmp
-    return tmp
+      tmp = self.queue.dequeue()
+      if self.queue.isEmpty():
+        r.data = tmp
+      else:
+        self._pop(r)
+        self.queue.enqueue(tmp)
+        
+    self.printData()
+  
+  def pop(self):
+    r = Result()
+    self._pop(r)
+    return r.data
+    
+    
+      
 
-  def print(self):
+  def printData(self):
     tmp = self.queue.front
     while tmp is not None:
-      print('data', tmp.data)
+      print(tmp.data, end = " ")
       tmp = tmp.next
 
 s = StackWithOneQueue2()
@@ -51,8 +61,8 @@ s.push(1)
 s.push(2)
 s.push(3)
 s.push(4)
-print(s.pop())
+print('pop', s.pop())
 # print(s.pop())
 # print(s.pop())
 # print(s.pop())
-s.print()
+s.printData()
