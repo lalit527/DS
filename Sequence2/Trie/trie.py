@@ -35,9 +35,27 @@ class Trie:
       pCrawl = pCrawl.children[index]
     return pCrawl is not None and pCrawl.isEndOfWord
 
-  def delet(self, s):
+  def delete(self, s):
     length = len(s)
-    self._traverse(self.root, s, 0, length)
+    if length > 0:
+      self._delete(self.root, s, 0, length)
+
+  def _delete(self, root, s, level, length):
+    if root:
+      if level == length:
+        if root.isEndOfWord:
+          root.isEndOfWord = False
+        
+        return root.isFreeNode()
+      else:
+        index = self.char_to_index(s[level])
+        if self._delete(root.children[index], s, level + 1, length):
+          root.children[index] = None
+
+          return (not pNode.leafNode() and pNode.isItFreeNode())
+
+    return False
+    
   
   def _traverse(self, root, s, level, length):
     if root:
@@ -53,6 +71,7 @@ def main():
   for key in keys:
       t.insert(key)
 
+  t.delete("the")
   # Search for different keys
   print("{} ---- {}".format("the",output[t.search("the")]))
   print("{} ---- {}".format("these",output[t.search("these")]))
