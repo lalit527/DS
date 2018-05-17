@@ -26,9 +26,11 @@ class QueueOneStack:
     if self.stack.isEmpty():
       return None
     node = self.stack.pop()
-    if not self.stack.isEmpty():
-      return node
-    self.stack.push(node)
+    if self.stack.isEmpty():
+      print(node)
+    else:
+      self.dequeue()
+      self.stack.push(node)
 
 q = QueueOneStack()
 q.enqueue(1)
