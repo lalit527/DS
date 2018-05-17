@@ -4,6 +4,12 @@ class Node:
     self.isEndOfWord = False
     self.children = [None] * 26
 
+  def isItFreeNode(self):
+    for i in self.children:
+      if self.children is not None:
+        return False
+    return True
+
 class Trie:
   def __init__(self):
     self.root = Node()
@@ -46,13 +52,13 @@ class Trie:
         if root.isEndOfWord:
           root.isEndOfWord = False
         
-        return root.isFreeNode()
+        return root.isItFreeNode()
       else:
         index = self.char_to_index(s[level])
         if self._delete(root.children[index], s, level + 1, length):
           root.children[index] = None
 
-          return (not pNode.leafNode() and pNode.isItFreeNode())
+          return (root.isEndOfWord and root.isItFreeNode())
 
     return False
     
