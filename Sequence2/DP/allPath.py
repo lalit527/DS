@@ -14,7 +14,7 @@ def _all_path_memo(m, n, result):
     result[0][i] = 1
 
   for i in range(1, m):
-    for j in range(n):
+    for j in range(1, n):
       result[i][j] = result[i-1][j] + result[i][j-1]
   return result[m-1][n-1]
 
