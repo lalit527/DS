@@ -4,7 +4,7 @@ def allPath(m, n):
 
   return allPath(m-1, n) + allPath(m, n-1)
 def all_path_memo(m, n):
-  result = [[0 for x in range(m)] for y in range(n)]
+  result = [[None for x in range(m)] for y in range(n)]
   return _all_path_memo(m, n, result)
 
 def _all_path_memo(m, n, result):
