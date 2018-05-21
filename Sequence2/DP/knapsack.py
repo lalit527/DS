@@ -20,7 +20,7 @@ def knapsack_memo(W, wt, val, n):
         K[i][w] = K[i-1][w]
   return K[n][W]
 
-val = [60, 100, 120]
+val = [60, 100, 120] 
 wt = [10, 20, 30]
 W = 50
 n = len(val)
