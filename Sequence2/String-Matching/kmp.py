@@ -20,8 +20,8 @@ def KMPSearch(pat, txt):
   lps = [0]*m
   j = 0
   computeLPS(pat, m, lps)
-  i = 0
-  
+  i = 0 
+
 
 txt = "ABABDABACDABABCABAB"
 pat = "ABABCABAB"
