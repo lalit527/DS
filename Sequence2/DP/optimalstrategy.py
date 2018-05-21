@@ -10,8 +10,8 @@ def optimalStrategy(arr, n):
       table[i][j] = max(arr[i] + min(x, y),
                       arr[j] + min(y, z))
       i += 1
-
   return table[0][n - 1]
+
 
 arr = [8, 15, 3, 7]
 n = len(arr)
