@@ -28,19 +28,22 @@ def quicksort(arr):
 
 def hoare_partition(arr, s, e):
   x = arr[s]
-  i = s
-  j = e
-  done = False
-  while not done:
-    while j <= e and arr[j] < x:
+  i = s - 1
+  j = e + 1
+  while True:
+    while True:
       j -= 1
-    while i<= e and arr[i] >= x:
+      if arr[j] <= x:
+        break
+    while True:
       i += 1
+      if arr[i] >= x:
+        break
     if i < j:
       arr[i], arr[j] = arr[j], arr[i]
     else:
-      done = True
-  return j
+      print(arr[j])
+      return j
 
 arr = [ 12, 11, 13, 5, 6, 7]
 quicksort(arr)
