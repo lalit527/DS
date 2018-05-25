@@ -17,7 +17,13 @@ def countSort(A, B, k):
   print(C)
   print(B)
 
-arr = [2,5,3,0,2,3,0,3]
-b = [None] * len(arr)
-k = 5
-countSort(arr, b, k)
+def main():
+  arr = [2,5,3,0,2,3,0,3]
+  b = [None] * len(arr)
+  k = 5
+  countSort(arr, b, k)
+
+if __name__ == '__main__':
+  main()
+
+

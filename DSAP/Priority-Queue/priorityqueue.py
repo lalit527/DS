@@ -1,6 +1,5 @@
 class PriorityQueueBase:
-  """ Abstract base class for a priority queue"""
-
+  
   class Item:
     __slots__ = '_key', '_value'
 
