@@ -2,13 +2,13 @@ def insertionSort(arr, s, e):
   for j in range(s+1, e+1):
     key = arr[j]
     i = j - 1
-    while i > s and arr[i] > key:
+    while i >= s and arr[i] > key:
       arr[i + 1] = arr[i]
       i = i - 1
     arr[i + 1] = key
 
 def _quicksort(arr, s, e):
-  if (e - s) > 10:
+  if (e - s) > 2:
     q = partition(arr, s, e)
     _quicksort(arr, s, q-1)
     _quicksort(arr, q+1, e)
@@ -31,5 +31,5 @@ def quicksort(arr):
   _quicksort(arr, 0, n-1)
 
 arr = [ 12, 11, 13, 5, 6, 7]
-insertionSort(arr, 0, 5)
+quicksort(arr)
 print(arr)
