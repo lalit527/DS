@@ -1,32 +1,25 @@
 from priorityqueue import PriorityQueueBase
+from collections import deque
 
 class UnsortedPriorityQueue(PriorityQueueBase):
-  def _find_min(self):
-    if self.is_empty():
-      raise Empty('Priority queue is empty')
-    small = self._data.first()
-    walk = self._data.after(small)
-    while walk is not None:
-      if walk.element() < small.element():
-        small = walk
-      walk = self._data.after(walk)
-    return small
 
   def __init__(self):
-    self._data = PositionalList()
+    self._data = deque()
 
   def __len__(self):
-    return len(self.data)
+    return len(self._data)
 
   def add(self, key, value):
-    self._data.add_last(self._Item(key, value))
+    self._data.append(self._Item(key, value))
+
+
+  def _find_min(self):
+    if self.is_empty():
+      raise Empty('Priority queue is Empty')
+    small = self._data[0]
+    walk = self._data[1]
+    while walk is not None:
+      
 
   def min(self):
-    p = self._find_min()
-    item = p.element()
-    return (item._key, item._value)
-  
-  def remove_min(self):
-    p = self._find_min()
-    item = self._data.delete(p)
-    return (item._key, item._value)
+    mi = self._find_min()
