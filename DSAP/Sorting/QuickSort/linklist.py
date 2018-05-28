@@ -25,6 +25,13 @@ class SingleLinkList:
       self.head = node
       node.next = tmp
 
+  def delete(self, n):
+    tmp = self.head
+    prev = None
+    while tmp is not None:
+      if tmp.data == n:
+        
+
 
   def printData(self):
     tmp = self.head
