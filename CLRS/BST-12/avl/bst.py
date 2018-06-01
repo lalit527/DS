@@ -34,6 +34,7 @@ class BSTNode:
       [left_line + ' ' * (width - left_width - right_width) + right_line
         for left_line, right_line in zip(left_lines, right_lines)]
     return lines, pos, width
+
   def __str__(self):
     return '\n'.join(self._str()[0])
 
@@ -234,7 +235,10 @@ def test(args= None, BSTtype = BST):
   for item in items:
       tree.insert(item)
       print("")
-      print(tree)
+      print(tree)    
+  # data = tree.root._str()
+  # for n in range(len(data)):
+  #   print(data[n])
 
 if __name__ == '__main__': test()
 
