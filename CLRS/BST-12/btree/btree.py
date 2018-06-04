@@ -1,8 +1,11 @@
 class BTreeNode:
-  def __init__(self, t, leaf = False):
+  def __init__(self, t, leaf = True):
     self.t = t                        # Minimum degree
     self.keys = [None] * (2 * t - 1)  # An array of keys
     self.children = [None] * (2 * t)  # An array of children
+    # for i in range(len(self.children)):
+    #   print('hey cana', i)
+    #   self.children[i] = BTreeNode(t)
     self.n = 0                        # current number of keys
     self.leaf = leaf                  # Is this a leaf node
 
@@ -71,9 +74,10 @@ class BTreeNode:
       self.keys[i+1] = k
       self.n += 1
     else:
+      print('chi--ldren', i)
       while i >= 0 and self.keys[i] > k:
         i -= 1
-
+      print('children', i)
       if self.children[i+1].n == 2 * t - 1:
         self.spiltChild(i+1, self.children[i+1])
 
@@ -94,12 +98,13 @@ class BTree:
       self.root = s
       s.leaf = False
       s.n = 0
-      s.children = r
+      s.children[0] = r
       s.spiltChild(r, 0)
       i = 0
       if s.keys[0] < k:
         i += 1
-      s.children[i].insertNonFull(s, k)
+      print('is this an issue', s.children, i)
+      s.children[0].insertNonFull(k)
       self.root = s
     else:
       self.root.insertNonFull(k)
@@ -112,4 +117,10 @@ B.insert(30)
 B.insert(40)
 B.insert(50)
 B.insert(60)
-print(B.root.search(10).keys)
+B.insert(70)
+B.insert(80)
+B.insert(90)
+B.insert(100)
+B.insert(110)
+
+print(B.root.keys)
