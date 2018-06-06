@@ -20,6 +20,8 @@ def cal_fibo(n):
 
 
 def cal_fibo_memo(n):
+  if n <= 0:
+    return 0
   fibo = [None] * (n + 1)
   fibo[0] = 0
   fibo[1] = 1
