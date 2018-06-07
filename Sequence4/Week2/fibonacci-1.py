@@ -30,6 +30,14 @@ def cal_fibo_memo(n):
     
   return fibo[n]
 
+def cal_fibo_memo_rec(n):
+  if n <= 0:
+    return 0
+  fibo = [None] * (n + 1)
+  f[0] = 0
+  f[1] = 1
+  return _cal_fib
+
 
 def main():
   count = 0
