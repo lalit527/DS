@@ -105,6 +105,20 @@ def largest_number_fixed(a):
     res += x
   return res
 
+## To test custom solution
+def largest_number_fixed2(a):
+  #write your code here
+  res = ""
+  while len(a) > 0:
+    max_digit = 0
+    for i in range(1, len(a)):
+      if is_current_max(a[i], a[max_digit]):
+        max_digit = i
+    res += a[max_digit]
+    a.pop(max_digit)
+  for x in a:
+    res += x
+  return res
 
 
 def largest_number_merging(a):
@@ -138,15 +152,15 @@ def main():
       arr.append(str(num))
       num = randint(1, 9)
       arr.append(str(num))
+    arr2 = arr[:]
     print(arr)
-    print(arr.sort())
+    print(arr2)
     n1 = largest_number_fixed(arr)
-    print(n1)
-    # if n1 != n2:
-    #   print('Error')
-    #   print(arr)
-    #   print(n1, n2)
-    #   break
+    n2 = largest_number_fixed2(arr2)
+    if n1 != n2:
+      print('Error')
+      print(n1, '<=======>', n2)
+      break
     count += 1
 
     if count == 10:
