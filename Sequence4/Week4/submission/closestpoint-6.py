@@ -1,11 +1,11 @@
 #Uses python3
 import sys
-import math
+from math import sqrt
 
 def closest_util(Px, Py):
   ln = len(Px)
   if ln <= 3:
-    return brute_force(Px)
+    return brute_force(Px, ln)
   
   mid = ln // 2
   Qx = Px[:mid]
@@ -37,24 +37,20 @@ def closest_util(Px, Py):
   else:
     return p3, q3, mid3
 
-def brute_force(Px):
-  mi = dist(Px[0], Px[1])
+def brute_force(Px, ln):
   p1 = Px[0]
   p2 = Px[1]
-  ln = len(Px)
-  if ln == 2:
-    return p1, p2, mi
-  for i in range(ln - 1):
+  mi = float('inf')
+  for i in range(ln):
     for j in range(i+1, ln):
-      if i != 0 and j != 1:
-        d = dist(Px[i], Px[j])
-        if d < mi:
-          mi = d
-          p1, p2 = Px[i], Px[j]
+      d = dist(Px[i], Px[j])
+      if d < mi:
+        mi = d
+        p1, p2 = Px[i], Px[j]
   return p1, p2, mi
 
 def dist(p1, p2):
-  return math.sqrt((p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2)
+  return sqrt((p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2)
 
 def strip_closest(Px, Py, delta, best_pair):
   ln = len(Px)

@@ -48,7 +48,8 @@ def isSubsetSum_memo(arr, n):
   print(part)
   return part[sum//2][n]
   
-def partition_souve(arr)
+def partition_souve(arr):
+  pass
 
 arr = [3, 1, 5, 9, 12]
 n = len(arr)
