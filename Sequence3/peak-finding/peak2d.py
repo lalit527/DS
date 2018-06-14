@@ -23,7 +23,7 @@ def find_peak(matrix, rows, cols):
 def peak_finder_rec(matrix, rows, cols, mid):
   max_found = [0] * 1
   max_index = find_max(matrix, rows, mid, max_found)
-
+  print('mi', max_index, mid)
   if mid == 0 or mid == cols - 1:
     return max_found[0]
   
@@ -56,4 +56,5 @@ problemMatrix = [
 	[ 3,  4,  5,  6,  7,  6,  5,  4,  3,  2,  1],
 	[ 2,  3,  4,  5,  6,  5,  4,  3,  2,  1,  0]
 ]
-find_peak(problemMatrix, len(problemMatrix), len(problemMatrix[0]))
+peak = find_peak(problemMatrix, len(problemMatrix), len(problemMatrix[0]))
+print(peak)
