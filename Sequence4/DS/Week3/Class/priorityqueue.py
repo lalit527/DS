@@ -31,6 +31,7 @@ class PriorityQueue:
 
     if max_index != i:
       self.queue[max_index], self.queue[i] = self.queue[i], self.queue[max_index]
+      self.shift_down(max_index)
 
   def insert(self, p):
     if self.size + 1 == self.capacity:
@@ -56,3 +57,7 @@ class PriorityQueue:
       self.shift_up(i)
     else:
       self.shift_down(i)
+
+
+if __name__ == '__main__':
+  print('Hey')

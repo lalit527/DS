@@ -66,4 +66,3 @@ def checkParen(text):
 if __name__ == "__main__":
     text = sys.stdin.read()
     print(checkParen(text))
-r
