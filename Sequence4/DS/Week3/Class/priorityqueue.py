@@ -5,7 +5,7 @@ class PriorityQueue:
     self.queue = [None] * capacity
 
   def parent(self, i):
-    return i // 2
+    return (i - 1) // 2
 
   def left_child(self, i):
     return 2 * i + 1
