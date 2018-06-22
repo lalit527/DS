@@ -46,19 +46,12 @@ class HashMap:
   def delete(self, key):
     index = self.hash_function(key)
     curr = self.hash[index].head
-    # if curr.next is None:
-    #   if curr.key == key:
-    #     self.hash[index].head = None
-    # else:
     prev = None
     while curr is not None:
       if curr.key == key:
-        print('found')
         if prev is None:
-          print('no prev')
           self.hash[index].head = curr.next
         else:
-          print('prev')
           prev.next = curr.next
         break
       prev = curr
@@ -75,12 +68,13 @@ def main():
   H.add(5, 'Hey')
   H.add(4, 'Ok')
   H.add(2, 'Sure')
+  print(H.get(5))
   H.add(5, 'Hiiiii')
   H.add(21, 'Uff')
+  print(H.get(5))
   H.delete(5)
   print(H.get(5))
   print(H.get(21))
-  print(H.hash)
 
 if __name__ == "__main__":
   main()
