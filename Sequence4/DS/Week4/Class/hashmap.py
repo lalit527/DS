@@ -18,7 +18,11 @@ class HashMap:
 
   def add(self, key, value):
     node = Node(key, value)
-    index = self.hash_function(key)
+    if type(key) is str:
+      index = self.hash_str_fn(key)
+    elif type(key) is int:
+      index = self.hash_function(key)
+
     head =  self.hash[index].head
     if head is None:
       self.hash[index].head = node
@@ -34,7 +38,10 @@ class HashMap:
         prev.next = node
 
   def get(self, key):
-    index = self.hash_function(key)
+    if type(key) is str:
+      index = self.hash_str_fn(key)
+    elif type(key) is int:
+      index = self.hash_function(key)
     head =  self.hash[index].head
     while head is not None:
       if head.key == key:
@@ -57,17 +64,32 @@ class HashMap:
       prev = curr
       curr = curr.next
 
-
-
-
   def hash_function(self, data):
-    return data % self.size
+    a = 34
+    b = 2
+    index = (a * data + b)
+    p = len(str(index)) - 1
+    p = 10 ** p + 19
+    index %= p
+    return index % self.size
+
+  def hash_str_fn(self, data):
+    h = 0
+    n = len(data)
+    x = 31
+    p = 119
+    for i in range(n-1, -1, -1):
+      h += ((h * x) + ord(data[i]))
+      h %= p
+    return h % self.size
+
 
 def main():
   H = HashMap()
   H.add(5, 'Hey')
   H.add(4, 'Ok')
   H.add(2, 'Sure')
+  H.add('Hey', 'Sure')
   print(H.get(5))
   H.add(5, 'Hiiiii')
   H.add(21, 'Uff')
@@ -75,6 +97,7 @@ def main():
   H.delete(5)
   print(H.get(5))
   print(H.get(21))
+  print(H.get('Hey'))
 
 if __name__ == "__main__":
   main()
