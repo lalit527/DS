@@ -24,10 +24,13 @@ def recalculate_hashes(pattern, text, p, x):
   y = 1
   for i in range(1, m + 1):
     y = (y * x) % p
+  
+  print(y, x, p)
 
   for i in range(n - m - 1, -1, -1):
-    result[i] = (x * result[i + 1] + ord(text[i]) -y * ord(text[i + m])) % p
+    result[i] = (x * result[i + 1] + ord(text[i]) - y * ord(text[i + m])) % p
 
+  print(result)
   return result
 
 def get_occurrences(pattern, text):
