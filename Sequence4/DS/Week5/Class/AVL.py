@@ -34,7 +34,10 @@ class AVLTree:
     return root.height
 
   def adjust_height(self, node):
-    node.height = 1 + max(node.left.height, node.right.height)
+    if node:
+      left = node.left.height if node.left else 0
+      right = node.right.height if node.right else 0
+      node.height = 1 + max(left, right)
 
   def rebalance(self, node):
     p = node.parent
@@ -89,12 +92,10 @@ class AVLTree:
       node.parent.right = x
     x.right = node
     node.parent = x
+    
 
   def insert(self, key):
     node = Node(key)
-    self._insert(root, node)
-
-  def _insert(self, node):
     x = None
     y = self.root
     while y is not None:
@@ -102,7 +103,7 @@ class AVLTree:
       if y.key > node.key:
         y = y.left
       else:
-        x = x.right
+        y = y.right
     node.parent = x
     if x is None:
       self.root = node
@@ -113,11 +114,47 @@ class AVLTree:
     
     self.adjust_height(x)
       
+  def delete(self, key):
+    root = self.root
+    node = self.find(key)
+    self._delete(root, node)
+
+  def _delete(self, root, node):
+    if node.left is None:
+      self.transplant(node, node.right)
+    elif node.right is None:
+      self.transplant(node, node.left)
+    else:
+      y = self._tree_minimum(node.right)
+      if y.parent != node:
+        self.transplant(node, node.right)
+        y.right = node.right
+        y.right.parent = y
+      
+      self.transplant(node, y)
+      y.left = node.left
+      y.left.parent = y
+
+  def inorder(self):
+    root = self.root
+    self._inorder(root)
+
+  def _inorder(self, root):
+    if root:
+      self._inorder(root.left)
+      print(root.key, root.height)
+      self._inorder(root.right)
 
 
 def main():
   T = AVLTree()
   T.insert(2)
+  T.insert(5)
+  T.insert(7)
+  T.insert(4)
+  T.insert(9)
+  T.insert(6)
+  T.inorder()
 
 if __name__ == "__main__":
   main()
