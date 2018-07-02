@@ -2,7 +2,7 @@
 
 import sys, threading
 
-sys.setrecursionlimit(10**10) # max depth of recursion
+sys.setrecursionlimit(10**8) # max depth of recursion
 threading.stack_size(2**30)  # new thread will get stack of such size
 from collections import deque
 
@@ -34,21 +34,21 @@ class Tree:
     return root
 
 
-  def _check_bst_(self):
-    return self._isBST(self.root, None, None)
+  # def check_bst(self):
+  #   return self._isBST(self.root, None, None)
 
-  def _isBST(self, root, min, max):
-    if root is None:
-      return True
+  # def _isBST(self, root, _min, _max):
+  #   if root is None:
+  #     return True
+  #   print(root.key, _min, _max)
+  #   if ((_min is not None and root.key < _min) or
+  #       (_max is not None and root.key > _max)):
+  #     return False
     
-    if ((min is not None and root.key <= min) or
-        (max is not None and root.key > max)):
-      return False
-    
-    if (self._isBST(root.left, min, root.key) == False or 
-        self._isBST(root.right, root.key, max) == False):
-      return False
-    return True
+  #   if (self._isBST(root.left, _min, root.key) == False or 
+  #       self._isBST(root.right, root.key, _max) == False):
+  #     return False
+  #   return True
 
   def check_bst(self):
     root = self.root
@@ -60,7 +60,10 @@ class Tree:
     if root is None:
       return True
     print(root.key, _min, _max, child)
-    if root.key <= _min or root.key > _max:
+    if root.key == _min or root.key == _max:
+      pass
+    
+    if root.key < _min or root.key >= _max:
       return False
 
     if (self._check_bst(root.left, _min, root.key, 'left') == False or
@@ -100,10 +103,10 @@ def IsBinarySearchTree(tree):
   # Implement correct algorithm here
   T = Tree()
   T.create(tree)
-  result = T.inorder()
-  print(result)
-  result = T.preorder()
-  print(result)
+  # result = T.inorder()
+  # print(result)
+  # result = T.preorder()
+  # print(result)
   return T.check_bst()
 
 
