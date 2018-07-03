@@ -7,13 +7,16 @@ class Vertex:
   def __init__(self, key, size, left, right, parent):
     (self.key, self.size, self.left, self.right, self.parent) = (key, size, left, right, parent)
 
-class SplayTree:
+class Splay:
   def __init__(self, s):
     self.root = None
     self.s = s
     for i in range(len(s)):
       vertex = Vertex(s[i], 0, None, None, None)
       self.root = self.merge(self.root, vertex)
+    print(self.root.key)
+    print(self.root.right.key if self.root.right else None)
+    print(self.root.left.key if self.root.left else None)
 
   def update(self, v):
     if v is None:
@@ -33,7 +36,7 @@ class SplayTree:
     while min_right.left is not None:
       min_right = min_right.left
     
-    self.splay(right, min_right)
+    self.root = self.splay(right, min_right)
     right.left = left
     self.update(right)
     return right
@@ -79,7 +82,7 @@ class SplayTree:
         self.small_rotation(v)
         break
       self.big_rotation(v)
-    return v
+    self.root = v
 
   def find(self, root, key):
     v = root
@@ -87,13 +90,14 @@ class SplayTree:
     # _next = None
     while v is not None:
       # if v.key >= key and 
-      s = v.left.sum if v.left is not None else 0
+      s = v.left.size if v.left is not None else 0
       if key == (s + 1):
         break
       elif key < (s + 1):
         v = v.left
       else:
         v = v.right
+        key = key - s - 1
 
     self.splay(root, v)
     return v
@@ -109,6 +113,7 @@ class SplayTree:
       left.parent = None
     self.update(left)
     self.update(right)
+    return (left, right)
 
   def merge(self, left, right):
     if left is None:
@@ -123,11 +128,9 @@ class SplayTree:
     self.update(left)
     return right
 
-  def insert(self, root, k, s):
-    left = None
-    right = None
-    self.split(root, k, left, right)
-    root = self.merge(merge(left, s), right)
+  # def insert(self, k, s):
+  #   self.root = self._insert(self.root, k, s)
+
   
   def in_order(self):
     return self._in_order(self.root)
@@ -151,19 +154,25 @@ class SplayTree:
         p = p.left
     
     return result
-    
 
 class Rope:
   def process(self, i, j, k):
-    print(self.S.in_order())
     print(i, j, k)
+    left = None
+    right = None
+    middle = None
+    (left, middle) = self.Splay.split(self.root, i + 1, left, middle)
+    (left, right) = self.Splay.split(self.root, j - i + 2, middle, right)
 
   def __init__(self, s):
-	  self.S = SplayTree(s)
+    self.Splay = Splay(s)
+    self.root = self.Splay.root
+    self.s = s
+    pass 
 
   def result(self):
-    return self.S.in_order()
-    # return self.s
+    print('rope', self.Splay.in_order())
+    return self.s
   
   # def process(self, i, j, k):
   #   pass
@@ -175,5 +184,4 @@ if __name__ == "__main__":
   for _ in range(q):
     i, j, k = map(int, sys.stdin.readline().strip().split())
     rope.process(i, j, k)
-  
   print(rope.result())
