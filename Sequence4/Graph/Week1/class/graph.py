@@ -6,6 +6,9 @@ class Vertex:
   def add_neighbours(self, nb):
     self.connections[nb] = 1
 
+  def get_connections(self):
+    return self.connections
+
   def __str__(self):
     return str(self.data) + ' connected to: ' + str([x.data for x in self.connections])
 
@@ -29,6 +32,11 @@ class Graph:
     self.vertexes[fr].add_neighbours(self.vertexes[to])
     self.vertexes[to].add_neighbours(self.vertexes[fr])
 
+  def get_vertex(self, v):
+    if v in self.vertexes:
+      return self.vertexes[v].get_connections()
+    return None
+
   def __str__(self):
     result = ""
     for key, value in self.vertexes.items():
@@ -48,7 +56,7 @@ def main():
   G.add_edge('B', 'D')
   G.add_edge('A', 'E')
   print(G)
-  
+
 if __name__ == "__main__":
   main()
 
