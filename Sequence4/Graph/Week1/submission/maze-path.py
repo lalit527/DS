@@ -62,17 +62,17 @@ def explore(G, v, visited, cc):
     for i in S - visited:
       explore(G, i, visited, cc)
     
-
-
 def dfs(G):
   V = G.all_vertexes()
   visited = set()
   cc = 0
   for v in V:
     if v not in visited:
+      # print('nv', v)
       explore(G, v, visited, cc)
       cc = cc + 1
-  print(V, cc)
+  # print(V, cc)
+  return cc
 
 def number_of_components(adj):
   print(adj)
@@ -84,17 +84,16 @@ if __name__ == '__main__':
   input = sys.stdin.read()
   data = list(map(int, input.split()))
   n, m = data[0:2]
-  print(n, m)
   data = data[2:]
   edges = list(zip(data[0:(2 * m):2], data[1:(2 * m):2]))
-  print(edges)
+  # print(edges)
   G = Graph()
   for i in range(1, n + 1):
     G.add_vertex(i)
   for edge in edges:
     G.add_edge(edge[0], edge[1])
-  print(G)
-  dfs(G)
+  # print(G)
+  print(dfs(G))
   # adj = [[] for _ in range(n)]
   # for (a, b) in edges:
   #   adj[a - 1].append(b - 1)

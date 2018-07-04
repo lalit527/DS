@@ -25,9 +25,11 @@ class Graph:
   def add_edge(self, fr, to):
     if fr not in self.vertexes:
       self.add_vertex(fr)
+      self.size += 1
     
     if to not in self.vertexes:
       self.add_vertex(to)
+      self.size += 1
     
     self.vertexes[fr].add_neighbours(self.vertexes[to])
     self.vertexes[to].add_neighbours(self.vertexes[fr])
