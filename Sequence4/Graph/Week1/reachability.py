@@ -1,3 +1,8 @@
+#Uses python3
+
+import sys
+from collections import deque
+
 class Vertex:
   def __init__(self, data):
     self.data = data
@@ -43,19 +48,41 @@ class Graph:
       result += str(value) + '\n'
     return result
 
+def reach(adj, x, y):
+  print(adj, x, y)
+  return 0
 
-def main():
+def dfs(G, x, y, visited):
+  visited.add(x)
+  if x == y:
+    return True
+  D = G.get_vertex(x)
+  S = set([key.data for key in D.keys()])
+  for i in S - visited:
+    dfs(G, i, y, visited)
+  return False
+
+if __name__ == '__main__':
+  input = sys.stdin.read()
   G = Graph()
-  G.add_vertex('A')
-  G.add_vertex('B')
-  G.add_vertex('C')
-  G.add_vertex('D')
-  G.add_vertex('E')
-  G.add_edge('A', 'B')
-  G.add_edge('B', 'C')
-  G.add_edge('B', 'D')
-  G.add_edge('A', 'E')
+  data = list(map(int, input.split()))
+  n, m = data[0:2]
+  print('ok', n, m)
+  data = data[2:]
+  print('data', data)
+  print('set', set(data))
+  edges = list(zip(data[0:(2 * m):2], data[1:(2 * m):2]))
+  for edge in edges:
+    G.add_edge(edge[0], edge[1])
   print(G)
-
-if __name__ == "__main__":
-  main()
+  x, y = data[2 * m:]
+  visited = set()
+  # print('done', x, y)
+  # adj = [[] for _ in range(n)]
+  # x, y = x - 1, y - 1
+  # for (a, b) in edges:
+  #   adj[a - 1].append(b - 1)
+  #   adj[b - 1].append(a - 1)
+  dfs(G, x, y, visited)
+  r = all(i in visited for i in [x, y])
+  print(int(r))
