@@ -65,6 +65,30 @@ class DirectedGraph:
         # print('key', key, v.data)
         g.add_edge(v.data, key)
     return g
+  
+  def __isCyclic__(self, v, visited, rec_stack):
+    visited.add(v)
+    rec_stack.add(v)
+    D = self.get_vertex(v)
+    for nb in D.keys():
+      if nb.data not in visited:
+        print('nbnv', nb.data, visited)
+        if self.__isCyclic__(nb.data, visited, rec_stack):
+          return True
+      elif nb.data in rec_stack:
+        return True
+    
+    rec_stack.remove(v)
+    return False
+
+  def isCyclic(self):
+    visited = set()
+    rec_stack = set()
+    for v in self.vertexes:
+      if v not in visited:
+        if self.__isCyclic__(v, visited, rec_stack):
+          return True
+    return False
     
   def __str__(self):
     result = ""
@@ -95,6 +119,7 @@ def dfs_rec(G, start, visited = None):
   return visited
 
 
+
 def main():
   G = DirectedGraph()
   G.add_vertex('A')
@@ -108,7 +133,10 @@ def main():
   G.add_edge('A', 'E')
   G.add_edge('C', 'D')
   G.add_edge('D', 'E')
-  strongly_connected(G)
+  G.add_edge('D', 'A')
+  # strongly_connected(G)
+  print(G)
+  print(G.isCyclic())
 
 if __name__ == "__main__":
   main()
