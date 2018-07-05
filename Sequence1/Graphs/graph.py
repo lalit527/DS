@@ -50,7 +50,7 @@ class Graph:
         return iter(self.vertexList)
 
     def __contains__(self, n):
-        return n in self.vertexList
+        return sn in self.vertexList
 
 g = Graph()
 for i in range(6):

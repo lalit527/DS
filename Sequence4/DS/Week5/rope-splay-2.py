@@ -163,6 +163,13 @@ class Rope:
     middle = None
     (left, middle) = self.Splay.split(self.root, i + 1, left, middle)
     (left, right) = self.Splay.split(self.root, j - i + 2, middle, right)
+    self.root = self.Splay.merge(left, right)
+    self.insert(k+1, middle)
+  
+  def insert(self, k, s):
+    left = None
+    right = None
+    
 
   def __init__(self, s):
     self.Splay = Splay(s)
