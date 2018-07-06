@@ -1,5 +1,6 @@
 #Uses python3
 
+import sys
 import sys, threading
 from collections import deque
 sys.setrecursionlimit(10**7)
@@ -47,6 +48,14 @@ class DirectedGraph:
     if v in self.vertexes:
       return self.vertexes[v].get_connections()
     return None
+  
+  def transponse(self):
+    g = DirectedGraph()
+    for key in self.vertexes.keys():
+      for v in self.get_vertex(key):
+        # print('key', key, v.data)
+        g.add_edge(v.data, key)
+    return g
 
   def __str__(self):
     result = ""
@@ -57,13 +66,12 @@ class DirectedGraph:
 def dfs(G, vertex, visited, stack):
   visited.add(vertex)
   D = G.get_vertex(vertex)
-  # S = set([i.data for i in D.keys()])
   if D is not None:
     for v in D:
       if v.data not in visited:
         dfs(G, v.data, visited, stack)
   # print(visited, vertex)
-  stack.appendleft(vertex)    
+  stack.append(vertex)    
 
 
 def toposort(G):
@@ -76,6 +84,35 @@ def toposort(G):
   # stack.reverse()
   return stack
 
+def strongly_connected(G):
+  stack = toposort(G)
+  G_t = G.transponse()
+  # print(stack)
+  # print(G_t)
+  cc = 0
+  visited = set()
+  while len(stack) > 0:
+    v = stack.pop()
+    if v not in visited:
+      dfs_rec(G_t, v, visited)
+      cc += 1
+      # print("")
+  return cc
+
+def dfs_rec(G, vertex, visited):
+  visited.add(vertex)
+  # print(vertex, end="")
+  D = G.get_vertex(vertex)
+  if D is not None:
+    for v in D:
+      if v.data not in visited:
+        dfs_rec(G, v.data, visited)
+
+def number_of_strongly_connected_components(adj):
+    result = 0
+    #write your code here
+    return result
+
 if __name__ == '__main__':
     input = sys.stdin.read()
     data = list(map(int, input.split()))
@@ -87,11 +124,8 @@ if __name__ == '__main__':
       G.add_vertex(i)
     for edge in edges:
       G.add_edge(edge[0], edge[1])
-    print(*toposort(G))
+    print(strongly_connected(G))
     # adj = [[] for _ in range(n)]
     # for (a, b) in edges:
     #     adj[a - 1].append(b - 1)
-    # order = toposort(adj)
-    # for x in order:
-    #     print(x + 1, end=' ')
-
+    # print(number_of_strongly_connected_components(adj))
