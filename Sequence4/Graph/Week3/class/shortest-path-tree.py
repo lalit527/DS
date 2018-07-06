@@ -47,10 +47,12 @@ class DirectedGraph:
       result += str(value) + '\n'
     return result
 
-def bfs(G, source):
+def shortest_path(G, source):
   dist = {}
+  prev = {}
   for v in G.vertexes.keys():
     dist[v] = float('inf')
+    prev[v] = None
   dist[source] = 0
   visited = set()
   Q = deque()
@@ -66,7 +68,19 @@ def bfs(G, source):
         if i.data not in visited:
           Q.append(i.data)
           dist[i.data] = dist[v] + 1
+          prev[i.data] = v
   print(dist)
+  print(prev)
+  return prev
+
+def reconstruct_path(source, dest, prev):
+  result = []
+  while dest != source:
+    result.append(dest)
+    dest = prev[dest]
+  result.append(source)
+  result.reverse()
+  return result
 
 
 def main():
@@ -82,7 +96,8 @@ def main():
   G.add_edge('A', 'E')
   G.add_edge('C', 'D')
   G.add_edge('D', 'E')
-  bfs(G, 'A')
+  p = shortest_path(G, 'A')
+  print(reconstruct_path('A', 'C', p))
   print(G)
 
 if __name__ == "__main__":
