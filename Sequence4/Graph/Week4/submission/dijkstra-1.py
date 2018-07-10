@@ -1,3 +1,8 @@
+#Uses python3
+
+import sys
+import queue
+
 from heapq import heappush, heappop
 
 class Vertex:
@@ -71,52 +76,46 @@ def dijksta(G, source):
         dist[edge[1]] = dist[u] + edge[2]
         prev[edge[1]] = u
         heappush(H, (edge[2], edge[1]))
-  print(dist)
-  print(prev)
+  return dist
 
-def main():
-  g = DirectedGraph()
-  for i in range(9):
-    g.add_vertex(i)
-  g.add_edge(0, 1, 4)
-  g.add_edge(0, 7, 8)
-  g.add_edge(1, 2, 8)
-  g.add_edge(1, 7, 11)
 
-  g.add_edge(2, 3, 7)
-  g.add_edge(2, 8, 2)
-  g.add_edge(2, 5, 4)
-  g.add_edge(3, 4, 9)
-  
-  g.add_edge(3, 5, 14)
-  g.add_edge(4, 5, 10)
-  g.add_edge(5, 6, 2)
-  g.add_edge(6, 7, 1)
-  g.add_edge(6, 8, 6)
-  g.add_edge(7, 8, 7)
+def shortet_paths(adj, cost, s, distance, reachable, shortest):
+    #write your code here
+    pass
 
-  print(g)
-  dijksta(g, 0)
 
-if __name__ == "__main__":
-  main()
-  # G = DirectedGraph()
-  # for i in range(1, 9):
-  #   G.add_vertex(i)
-  # G.add_edge(1, 2, 4)
-  # G.add_edge(1, 8, 8)
-  # G.add_edge(2, 3, 8)
-  # G.add_edge(2, 8, 11)
-  # G.add_edge(3, 4, 7)
-  # G.add_edge(3, 9, 2)
-  # G.add_edge(3, 6, 4)
-  # G.add_edge(4, 5, 9)
+if __name__ == '__main__':
+    input = sys.stdin.read()
+    data = list(map(int, input.split()))
+    n, m = data[0:2]
+    data = data[2:]
+    edges = list(zip(zip(data[0:(3 * m):3], data[1:(3 * m):3]), data[2:(3 * m):3]))
+    data = data[3 * m:]
+    G = DirectedGraph()
+    for i in range(1, n+1):
+      G.add_vertex(i)
+    for edge, w in edges:
+      G.add_edge(edge[0], edge[1], w)
+    result = dijksta(G, data[0])
+    print(result[data[1]] if result[data[1]] != float('inf') else -1)
+    # print(n, m)
+    # print(edges)
+    # adj = [[] for _ in range(n)]
+    # cost = [[] for _ in range(n)]
+    # for ((a, b), w) in edges:
+    #     adj[a - 1].append(b - 1)
+    #     cost[a - 1].append(w)
+    # s = data[0]
+    # s -= 1
+    # distance = [10**19] * n
+    # reachable = [0] * n
+    # shortest = [1] * n
+    # shortet_paths(adj, cost, s, distance, reachable, shortest)
+    # for x in range(n):
+    #     if reachable[x] == 0:
+    #         print('*')
+    #     elif shortest[x] == 0:
+    #         print('-')
+    #     else:
+    #         print(distance[x])
 
-  # G.add_edge(4, 6, 14)
-  # G.add_edge(5, 6, 10)
-  # G.add_edge(6, 7, 2)
-  # G.add_edge(7, 8, 1)
-  # G.add_edge(7, 9, 6)
-  # G.add_edge(8, 9, 7)
-  # print(G)
-  # dijksta(G, 1)

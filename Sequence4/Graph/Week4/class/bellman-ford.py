@@ -46,14 +46,18 @@ class DirectedGraph:
   def get_all_vertex(self, v):
     if v in self.vertexes:
       return self.vertexes[v].get_all_connections()
-    
+  
+  def all_edges(self):
+    result = [value.get_all_connections() for key, value in self.vertexes.items()]
+    return [item for sublist in result for item in sublist]
+
   def __str__(self):
     result = ""
     for key, value in self.vertexes.items():
       result += str(value) + '\n'
     return result
 
-def dijksta(G, source):
+def bellman(G, source):
   dist = {}
   prev = {}
   H = []
@@ -61,18 +65,21 @@ def dijksta(G, source):
     dist[u] = float('inf')
     prev[u] = None
   dist[source] = 0
-  heappush(H, (0, source))
-  
-  while len(H) > 0:
-    (w, u) = heappop(H)
-    D = G.get_all_vertex(u)
-    for edge in D:
-      if dist[edge[1]] > dist[u] + edge[2]:
-        dist[edge[1]] = dist[u] + edge[2]
-        prev[edge[1]] = u
-        heappush(H, (edge[2], edge[1]))
+
+  print(G.all_edges())
+  for i in range(len(G.vertexes)):
+    for u, v, w in G.all_edges():
+      if dist[u] != float('inf') and dist[v] > dist[u] + w:
+        dist[v] = dist[u] + w
+        prev[v] = u
+
+  for u, v, w in G.all_edges:
+    if dist[u] != float('inf') and dist[u] + w < dist[v]:
+      print "Graph contains negetive cycle"
+      return
   print(dist)
   print(prev)
+    
 
 def main():
   g = DirectedGraph()
@@ -96,7 +103,7 @@ def main():
   g.add_edge(7, 8, 7)
 
   print(g)
-  dijksta(g, 0)
+  bellman(g, 0)
 
 if __name__ == "__main__":
   main()
