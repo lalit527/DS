@@ -51,14 +51,32 @@ def bellman(G, source):
     dist[u] = int_max
     prev[u] = None
   dist[source] = 0
-  for i in range(len(G.vertexes) - 1):
+  q = queue.Queue()
+  for i in range(len(G.vertexes)):
     for u, v, w in G.all_edges:
       if dist[u] != int_max and dist[v] > dist[u] + w:
         dist[v] = dist[u] + w
         prev[v] = u
-  
+        if i == len(G.vertexes) - 1:
+          q.put(v)
+          
+  visited = [0] * len(G.vertexes)
+  shortest = [1] * len(G.vertexes)
+  while not q.empty():
+    u = q.get()
+    visited[u] = 1
+    if u != source:
+      shortest[u] = 0
+    for v in G.get_vertex(u):
+      print(v)
+      if visited[v[0]] == 0:
+        q.put(v[0])
+        visited[v[0]] = 1
+        shortest[v[0]]
   print(dist)
   print(prev)
+  print(visited)
+  print(shortest)
 
 def shortet_paths(adj, cost, s, distance, reachable, shortest):
     #write your code here
