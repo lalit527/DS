@@ -67,7 +67,6 @@ def dijksta(G, source):
     prev[u] = None
   dist[source] = 0
   heappush(H, (0, source))
-  
   while len(H) > 0:
     (w, u) = heappop(H)
     D = G.get_all_vertex(u)
@@ -75,7 +74,7 @@ def dijksta(G, source):
       if dist[edge[1]] > dist[u] + edge[2]:
         dist[edge[1]] = dist[u] + edge[2]
         prev[edge[1]] = u
-        heappush(H, (edge[2], edge[1]))
+        heappush(H, (edge[2], edge[1])) # TODO: Review this, weight seems to be wrong
   return dist
 
 
