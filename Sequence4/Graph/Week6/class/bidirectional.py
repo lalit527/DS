@@ -45,7 +45,7 @@ def bidirectional(G, s, t):
       if v_r[1] in proc:
         return shortestpath(s, dist, prev, proc, t, dist_r, prev_r, proc_r)
       count += 1
-      if count == 10:
+      if len(H) < 0 or len(H_r) < 0:
         break
   print(prev)
   print(prev_r)
