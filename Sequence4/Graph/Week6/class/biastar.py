@@ -1,4 +1,4 @@
-"""Pending for bistar"""
+"""Pending for biastar"""
 
 from graph import DirectedGraph
 import heapq
