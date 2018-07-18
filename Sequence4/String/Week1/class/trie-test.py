@@ -1,3 +1,6 @@
+import sys
+from collections import OrderedDict
+
 class Node:
   def __init__(self, label, data = None):
     self.data = data
@@ -16,44 +19,62 @@ class Trie:
   def get_index(self, c):
     return ord(c) - ord('A')
 
-  def insert(self, text):
+  def insert(self, patterns):
+    for pattern in patterns:
+      self._insert(pattern)
+
+  def _insert(self, text):
     root = self.root
     for c in text:
       i = self.get_index(c)
       if root.children[i] is None:
         # print(root.label)
-        node = Node(i + 1, c)
+        node = Node(self.label + 1, c)
         self.label += 1
         root.children[i] = node
+      else:
+        pass
       root = root.children[i]
     root.eos = True
   
-  def search(self, pattern):
+  def search(self, patterns):
+    D = OrderedDict()
+    for pattern in patterns:
+      self._search(pattern, D)
+    for key, value in D.items():
+      print(key+ ':' + value)
+
+  def _search(self, pattern, D):
     root = self.root
+    prev = None
     for c in pattern:
       i = self.get_index(c)
+      prev = root
       root = root.children[i]
       if root is not None:
-        print(str(root.label - 1) + '->' + str(root.label) + ':' + c)
+        D[str(prev.label) + '->' + str(root.label)] = c
+       
+
+if __name__ == '__main__':
+    # n = sys.stdin.read()
+    n, *patterns = sys.stdin.read().split()
+    T = Trie()
+    T.insert(patterns)
+    T.search(patterns)
+#     T = Trie()
+#     tree = build_trie(patterns)
+#     for node in tree:
+#         for c in tree[node]:
+#             print("{}->{}:{}".format(node, tree[node][c], c))
 
 
-  # def __str__(self):
-  #   result = ''
-  #   root = self.root
-  #   while True:
-  #     result 
-  #   for i in self.root.children:
-  #     result += str(i) + ' ' + '\n'
-  #   return result
-
-
-T = Trie()
-T.insert('ATAGA')
-T.insert('ATC')
-T.insert('GAT')
-T.search('ATAGA')
-T.search('ATC')
-T.search('GAT')
+# for pattern in 
+# T.insert('ATAGA')
+# T.insert('ATC')
+# T.insert('GAT')
+# T.search('ATAGA')
+# T.search('ATC')
+# T.search('GAT')
 
 # TrieConstruction(Patterns):
 #   Trie = graph consisiting of single node root
