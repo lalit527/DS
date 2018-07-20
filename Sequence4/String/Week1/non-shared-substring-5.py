@@ -45,7 +45,8 @@ def print_output(root):
 
 if __name__ == '__main__':
     patterns = sys.stdin.read().split()
-    text = ''.join(patterns)
+    text = patterns[0]
+    pattern = patterns[1]
     T = SuffixTree()
-    T.insert(text)
+    T.insert(text + '#' + pattern + '$')
     print_output(T.root)
