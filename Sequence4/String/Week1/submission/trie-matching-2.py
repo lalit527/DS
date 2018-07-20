@@ -61,7 +61,8 @@ def _prefixTrieMatch(text, trie, index, s):
   for c in text:
     i = trie.get_index(c)
     if root.children[i] is not None and root.children[i].eos:
-      s[index] = True
+      s.append(str(index))
+      break
     elif root.children[i] is not None:
       root = root.children[i]
     else:
@@ -70,14 +71,15 @@ def _prefixTrieMatch(text, trie, index, s):
 
 def prefixTrieMatch(text, trie):
   i = 0
-  S = OrderedDict()
+  S = []
   while len(text) > 0:
     _prefixTrieMatch(text, trie, i, S)
     i += 1
     text = text[1:]
-  for key in S.keys():
-    print(key, end = ' ')
-  print('')
+  # for key in S:
+  #   print(key, end = ' ')
+  # print('')
+  print(' '.join(S))
 
 if __name__ == '__main__':
     # n = sys.stdin.read()
@@ -90,50 +92,3 @@ if __name__ == '__main__':
     T = Trie()
     T.insert(patterns)
     prefixTrieMatch(text, T)
-#     T = Trie()
-#     tree = build_trie(patterns)
-#     for node in tree:
-#         for c in tree[node]:
-#             print("{}->{}:{}".format(node, tree[node][c], c))
-
-
-# for pattern in 
-# T.insert('ATAGA')
-# T.insert('ATC')
-# T.insert('GAT')
-# T.search('ATAGA')
-# T.search('ATC')
-# T.search('GAT')
-
-# TrieConstruction(Patterns):
-#   Trie = graph consisiting of single node root
-#   for pattern in patterns:
-#     currentNode = root
-#     for i = 1 to pattern:
-#       currentSymbol = ith symbol of pattern
-#       if there is an outgoing edge from currentNode with label currentSymbol:
-#         currentNode = ending of this node 
-#       else:
-#         add a new node newNode to the root of trie
-#         add a new edge from currentNode to newNode with label as currentSymbol
-#         currentNode = newNode
-
-#   return Trie
-# TrieMatching(Text, Trie):
-#   while text is nonEmpty:
-#     PrefixTrieMatching(Text, Trie)
-#     remove first symbol from the Text
-
-# PrefixTrieMatching(Text, Trie):
-#   symbol = first letter of Trie
-#   v = root of Trie
-#   while Forever:
-#     if v is a leaf in Trie:
-#       return pattern spelled by the path from the root to v
-#     else if there is an edge(v, w) in the Trie labelled by the symbol:
-#       symbol = next letter of Trie
-#       v = w 
-#     else output 'no match found':
-#       return
-
-
