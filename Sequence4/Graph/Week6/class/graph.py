@@ -39,12 +39,13 @@ class DirectedGraph:
   def get_vertex(self, v):
     if v in self.vertexes:
       return self.vertexes[v].get_connections()
-    return None
+    return {}
 
   def get_all_vertex(self, v):
     if v in self.vertexes:
       return self.vertexes[v].get_all_connections()
 
+    
   def all_edges(self):
     result = [value.get_all_connections() for key, value in self.vertexes.items()]
     return [item for sublist in result for item in sublist]

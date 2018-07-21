@@ -1,0 +1,55 @@
+#Uses python3
+import sys
+from collections import OrderedDict
+
+class Node:
+  def __init__(self, label):
+    self.label = label
+    self.next = {}
+
+class SuffixTree:
+  def __init__(self):
+    self.root = Node(None)
+  
+  def insert(self, text):
+    count = 1
+    for i in range(len(text) - 1, -1, -1):
+      current = self.root
+      j = i
+      while j < len(text):
+        print(j)
+        if text[j] in current.next:
+          _next = current.next[text[j]]
+          label = _next.label
+          k = j + 1
+          while k - j < len(label) and text[k] == label[k - j]:
+            k += 1
+          if k - j == len(label):
+            current = _next
+            j = k
+          else:
+            exist, new = label[k -j], text[k]
+            mid = Node(label[:k - j])
+            mid.next[new] = Node(text[k:])
+            mid.next[exist] = _next
+            _next.label = label[k - j:]
+            current.next[text[j]] = mid
+        else:
+          current.next[text[j]] = Node(text[j:])
+        # count += 1
+        # if count == 100:
+        #   break
+          
+
+def print_output(root):
+  for child in root.next:
+    print(root.next[child].label)
+    print_output(root.next[child])
+
+
+if __name__ == '__main__':
+    patterns = sys.stdin.read().split()
+    text = ''.join(patterns)
+    T = SuffixTree()
+    T.insert(text)
+    print_output(T.root)
