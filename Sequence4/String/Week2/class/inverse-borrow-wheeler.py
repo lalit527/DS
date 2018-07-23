@@ -1,16 +1,17 @@
 def inverse_bwt(bwt):
   last = [(value, index) for (index, value) in enumerate(bwt)]
-  print(last)
+  # print('last', last)
   first = sorted(last)
-  print(first)
+  # print('first', first)
   first_to_last = {f: l for f, l in zip(first, last)}
   next = first[0]
   result = ''
-  print(first_to_last)
+  for key, value in first_to_last.items():
+    print(key, '->', value)
   for i in range(len(bwt)):
     result += next[0]
     next = first_to_last[next]
-  print(result)
+  # print(result)
   return result[::-1]
 
 if __name__ == '__main__':
