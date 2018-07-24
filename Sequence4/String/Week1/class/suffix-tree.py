@@ -12,27 +12,26 @@ class SuffixTree:
     self.root = Node(None)
   
   def insert(self, text):
-    for i in range(len(text) - 1, -1, -1):
-      found = False
+    n = len(text)
+    for i in range(n - 1, -1, -1):
       current = self.root
       j = i
-      while j < len(text):
-        print(j, current.next)
+      while j < n:
         if text[j] in current.next:
-          child = current.next[text[j]]
-          label = child.label
+          _next = current.next[text[j]]
+          label = _next.label
           k = j + 1
-          while k - j < len(label) and text[k] == label[k - j]:
+          while k - j < len(label) and label[k - j] == text[k]:
             k += 1
           if k - j == len(label):
-            current = child
+            current = _next
             j = k
           else:
             exist, new = label[k - j], text[k]
-            mid = Node(label[:k-j])
+            mid = Node(label[:k - j])
             mid.next[new] = Node(text[k:])
-            mid.next[exist] = child
-            child.label = label[k-j:]
+            mid.next[exist] = _next
+            _next.label = label[k - j:]
             current.next[text[j]] = mid
         else:
           current.next[text[j]] = Node(text[j:])
@@ -44,8 +43,7 @@ def print_output(root):
 
 
 if __name__ == '__main__':
-    patterns = sys.stdin.read().split()
-    text = ''.join(patterns)
+    text = 'AAC$'
     T = SuffixTree()
     T.insert(text)
     print_output(T.root)
