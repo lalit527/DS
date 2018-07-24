@@ -39,13 +39,17 @@ class SuffixTree:
 
 def print_output(root):
   for child in root.next:
-    print(root.next[child].label)
+    result = root.next[child].label
+    if result.find("#") > 0:
+      print(result)
     print_output(root.next[child])
+
 
 
 if __name__ == '__main__':
     patterns = sys.stdin.read().split()
-    text = ''.join(patterns)
+    text = patterns[0]
+    pattern = patterns[1]
     T = SuffixTree()
-    T.insert(text)
+    T.insert(text + '#' + pattern + '$')
     print_output(T.root)

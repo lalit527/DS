@@ -1,5 +1,6 @@
 #Uses python3
 import sys
+sys.setrecursionlimit(10**7)
 from collections import OrderedDict
 
 class Node:
