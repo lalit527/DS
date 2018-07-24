@@ -1,205 +1,219 @@
-class Node(object):
-    """A node in the suffix tree. 
-    
-    suffix_node
-        the index of a node with a matching suffix, representing a suffix link.
-        -1 indicates this node has no suffix link.
-    """
-    def __init__(self):
-        self.suffix_node = -1   
+"""An optimized implementation of Suffix-Tree."""
 
-    def __repr__(self):
-        return "Node(suffix link: %d)"%self.suffix_node
+# For more infor about the comments you can read http://web.stanford.edu/~mjkay/gusfield.pdf
+from operator import attrgetter
 
-class Edge(object):
-    """An edge in the suffix tree.
-    
-    first_char_index
-        index of start of string part represented by this edge
-        
-    last_char_index
-        index of end of string part represented by this edge
-        
-    source_node_index
-        index of source node of edge
-    
-    dest_node_index
-        index of destination node of edge
-    """
-    def __init__(self, first_char_index, last_char_index, source_node_index, dest_node_index):
-        self.first_char_index = first_char_index
-        self.last_char_index = last_char_index
-        self.source_node_index = source_node_index
-        self.dest_node_index = dest_node_index
-        
-    @property
-    def length(self):
-        return self.last_char_index - self.first_char_index
-
-    def __repr__(self):
-        return 'Edge(%d, %d, %d, %d)'% (self.source_node_index, self.dest_node_index 
-                                        ,self.first_char_index, self.last_char_index )
+leafEnd = -1
 
 
-class Suffix(object):
-    """Represents a suffix from first_char_index to last_char_index.
-    
-    source_node_index
-        index of node where this suffix starts
-    
-    first_char_index
-        index of start of suffix in string
-        
-    last_char_index
-        index of end of suffix in string
-    """
-    def __init__(self, source_node_index, first_char_index, last_char_index):
-        self.source_node_index = source_node_index
-        self.first_char_index = first_char_index
-        self.last_char_index = last_char_index
-        
-    @property
-    def length(self):
-        return self.last_char_index - self.first_char_index
-                
-    def explicit(self):
-        """A suffix is explicit if it ends on a node. first_char_index
-        is set greater than last_char_index to indicate this.
+class Node:
+    """The Suffix-tree's node."""
+
+    def __init__(self, leaf):
+        # self.__identifier = identifier
+        self.children = {}
+        # for leaf nodes, it stores the index of suffix for
+        # the path  from root to leaf"""
+        self.leaf = leaf
+        self.suffixIndex = None
+        self.start = None
+        self.end = None
+        self.suffixLink = None
+
+    def __eq__(self, node):
+        atg = attrgetter('start', 'end', 'suffixIndex')
+        return atg(self) == atg(node)
+
+    def __ne__(self, node):
+        atg = attrgetter('start', 'end', 'suffixIndex')
+        return atg(self) != atg(node)
+
+    def __getattribute__(self, name):
+        if name == 'end':
+            if self.leaf:
+                return leafEnd
+        return super(Node, self).__getattribute__(name)
+
+
+class SuffixTree:
+    """The Suffix-Tree."""
+
+    def __init__(self, data):
+        """Initiate the tree."""
+        self._string = data
+        self.lastNewNode = None
+        self.activeNode = None
+        """activeEdge is represeted as input string character
+          index (not the character itself)"""
+        self.activeEdge = -1
+        self.activeLength = 0
+        # remainingSuffixCount tells how many suffixes yet to
+        # be added in tree
+        self.remainingSuffixCount = 0
+        self.rootEnd = None
+        self.splitEnd = None
+        self.size = -1  # Length of input string
+        self.root = None
+
+    def edge_length(self, node):
+        return node.end - node.start + 1
+
+    def walk_down(self, current_node):
+        """Walk down from current node.
+        activePoint change for walk down (APCFWD) using
+        Skip/Count Trick  (Trick 1). If activeLength is greater
+        than current edge length, set next  internal node as
+        activeNode and adjust activeEdge and activeLength
+        accordingly to represent same activePoint.
         """
-        return self.first_char_index > self.last_char_index
-    
-    def implicit(self):
-        return self.last_char_index >= self.first_char_index
+        length = self.edge_length(current_node)
+        if (self.activeLength >= length):
+            self.activeEdge += length
+            self.activeLength -= length
+            self.activeNode = current_node
+            return True
+        return False
 
-        
-class SuffixTree(object):
-    """A suffix tree for string matching. Uses Ukkonen's algorithm
-    for construction.
-    """
-    def __init__(self, string, case_insensitive=False):
-        """
-        string
-            the string for which to construct a suffix tree
-        """
-        self.string = string
-        self.case_insensitive = case_insensitive
-        self.N = len(string) - 1
-        self.nodes = [Node()]
-        self.edges = {}
-        self.active = Suffix(0, 0, -1)
-        if self.case_insensitive:
-            self.string = self.string.lower()
-        for i in range(len(string)):
-            self._add_prefix(i)
-    
-    def __repr__(self):
-        """ 
-        Lists edges in the suffix tree
-        """
-        curr_index = self.N
-        s = "\tStart \tEnd \tSuf \tFirst \tLast \tString\n"
-        values = list(self.edges.values())
-        values.sort(key=lambda x: x.source_node_index)
-        for edge in values:
-            if edge.source_node_index == -1:
-                continue
-            s += "\t%s \t%s \t%s \t%s \t%s \t"%(edge.source_node_index
-                    ,edge.dest_node_index 
-                    ,self.nodes[edge.dest_node_index].suffix_node 
-                    ,edge.first_char_index
-                    ,edge.last_char_index)
-                    
-            
-            top = min(curr_index, edge.last_char_index)
-            s += self.string[edge.first_char_index:top+1] + "\n"
-        return s
-            
-    def _add_prefix(self, last_char_index):
-        """The core construction method.
-        """
-        last_parent_node = -1
-        while True:
-            parent_node = self.active.source_node_index
-            if self.active.explicit():
-                if (self.active.source_node_index, self.string[last_char_index]) in self.edges:
-                    # prefix is already in tree
-                    break
+    def new_node(self, start, end=None, leaf=False):
+        """For root node, suffixLink will be set to NULL
+        For internal nodes, suffixLink will be set to root
+        by default in  current extension and may change in
+        next extension"""
+        node = Node(leaf)
+        node.suffixLink = self.root
+        node.start = start
+        node.end = end
+        """suffixIndex will be set to -1 by default and
+           actual suffix index will be set later for leaves
+           at the end of all phases"""
+        node.suffixIndex = -1
+        return node
+
+    def extend_suffix_tree(self, pos):
+        global leafEnd
+        """Extension Rule 1, this takes care of extending all
+        leaves created so far in tree"""
+        leafEnd = pos
+        """Increment remainingSuffixCount indicating that a
+        new suffix added to the list of suffixes yet to be
+        added in tree"""
+        self.remainingSuffixCount += 1
+        """set lastNewNode to None while starting a new phase,
+         indicating there is no internal node waiting for
+         it's suffix link reset in current phase"""
+        self.lastNewNode = None
+        # Add all suffixes (yet to be added) one by one in tree
+        while(self.remainingSuffixCount > 0):
+            if (self.activeLength == 0):
+                self.activeEdge = pos  # APCFALZ
+            #  There is no outgoing edge starting with
+            #  activeEdge from activeNode
+            if (self.activeNode.children.get(self._string[self.activeEdge]) is None):
+                # Extension Rule 2 (A new leaf edge gets created)
+                self.activeNode.children[self._string[self.activeEdge]] = self.new_node(pos, leaf=True)
+                """A new leaf edge is created in above line starting
+                 from  an existng node (the current activeNode), and
+                 if there is any internal node waiting for it's suffix
+                 link get reset, point the suffix link from that last
+                 internal node to current activeNode. Then set lastNewNode
+                 to None indicating no more node waiting for suffix link
+                 reset."""
+                if (self.lastNewNode is not None):
+                    self.lastNewNode.suffixLink = self.activeNode
+                    self.lastNewNode = None
+            #  There is an outgoing edge starting with activeEdge
+            #  from activeNode
             else:
-                e = self.edges[self.active.source_node_index, self.string[self.active.first_char_index]]
-                if self.string[e.first_char_index + self.active.length + 1] == self.string[last_char_index]:
-                    # prefix is already in tree
+                #  Get the next node at the end of edge starting
+                #  with activeEdge
+                _next = self.activeNode.children.get(self._string[self.activeEdge])
+                if self.walk_down(_next):  # Do walkdown
+                    # Start from _next node (the new activeNode)
+                    continue
+                """Extension Rule 3 (current character being processed
+                  is already on the edge)"""
+                if (self._string[_next.start + self.activeLength] == self._string[pos]):
+                    # If a newly created node waiting for it's
+                    # suffix link to be set, then set suffix link
+                    # of that waiting node to curent. active node
+                    if((self.lastNewNode is not None) and (self.activeNode != self.root)):
+                        self.lastNewNode.suffixLink = self.activeNode
+                        self.lastNewNode = None
+                    # APCFER3
+                    self.activeLength += 1
+                    """STOP all further processing in this phase
+                    and move on to _next phase"""
                     break
-                parent_node = self._split_edge(e, self.active)
-        
+                """We will be here when activePoint is in middle of
+                  the edge being traversed and current character
+                  being processed is not  on the edge (we fall off
+                  the tree). In this case, we add a new internal node
+                  and a new leaf edge going out of that new node. This
+                  is Extension Rule 2, where a new leaf edge and a new
+                internal node get created"""
+                self.splitEnd = _next.start + self.activeLength - 1
+                # New internal node
+                split = self.new_node(_next.start, self.splitEnd)
+                self.activeNode.children[self._string[self.activeEdge]] = split
+                # New leaf coming out of new internal node
+                split.children[self._string[pos]] = self.new_node(pos, leaf=True)
+                _next.start += self.activeLength
+                split.children[self._string[_next.start]] = _next
+                """We got a new internal node here. If there is any
+                  internal node created in last extensions of same
+                  phase which is still waiting for it's suffix link
+                  reset, do it now."""
+                if (self.lastNewNode is not None):
+                    # suffixLink of lastNewNode points to current newly
+                    # created internal node
+                    self.lastNewNode.suffixLink = split
+                """Make the current newly created internal node waiting
+                  for it's suffix link reset (which is pointing to self.root
+                  at present). If we come across any other internal node
+                  (existing or newly created) in next extension of same
+                  phase, when a new leaf edge gets added (i.e. when
+                  Extension Rule 2 applies is any of the next extension
+                  of same phase) at that point, suffixLink of this node
+                  will point to that internal node."""
+                self.lastNewNode = split
+            """One suffix got added in tree, decrement the count of
+               suffixes yet to be added."""
+            self.remainingSuffixCount -= 1
+            if ((self.activeNode == self.root) and (self.activeLength > 0)):  # APCFER2C1
+                self.activeLength -= 1
+                self.activeEdge = pos - self.remainingSuffixCount + 1
+            elif (self.activeNode != self.root):  # APCFER2C2
+                self.activeNode = self.activeNode.suffixLink
 
-            self.nodes.append(Node())
-            e = Edge(last_char_index, self.N, parent_node, len(self.nodes) - 1)
-            self._insert_edge(e)
-            
-            if last_parent_node > 0:
-                self.nodes[last_parent_node].suffix_node = parent_node
-            last_parent_node = parent_node
-            
-            if self.active.source_node_index == 0:
-                self.active.first_char_index += 1
-            else:
-                self.active.source_node_index = self.nodes[self.active.source_node_index].suffix_node
-            self._canonize_suffix(self.active)
-        if last_parent_node > 0:
-            self.nodes[last_parent_node].suffix_node = parent_node
-        self.active.last_char_index += 1
-        self._canonize_suffix(self.active)
-        
-    def _insert_edge(self, edge):
-        self.edges[(edge.source_node_index, self.string[edge.first_char_index])] = edge
-        
-    def _remove_edge(self, edge):
-        self.edges.pop((edge.source_node_index, self.string[edge.first_char_index]))
-        
-    def _split_edge(self, edge, suffix):
-        self.nodes.append(Node())
-        e = Edge(edge.first_char_index, edge.first_char_index + suffix.length, suffix.source_node_index, len(self.nodes) - 1)
-        self._remove_edge(edge)
-        self._insert_edge(e)
-        self.nodes[e.dest_node_index].suffix_node = suffix.source_node_index  ### need to add node for each edge
-        edge.first_char_index += suffix.length + 1
-        edge.source_node_index = e.dest_node_index
-        self._insert_edge(edge)
-        return e.dest_node_index
+    def walk_dfs(self, current):
+        start, end = current.start, current.end
+        yield self._string[start: end + 1]
 
-    def _canonize_suffix(self, suffix):
-        """This canonizes the suffix, walking along its suffix string until it 
-        is explicit or there are no more matched nodes.
-        """
-        if not suffix.explicit():
-            e = self.edges[suffix.source_node_index, self.string[suffix.first_char_index]]
-            if e.length <= suffix.length:
-                suffix.first_char_index += e.length + 1
-                suffix.source_node_index = e.dest_node_index
-                self._canonize_suffix(suffix)
- 
+        for node in current.children.values():
+            if node:
+                yield from self.walk_dfs(node)
 
-    # Public methods
-    def find_substring(self, substring):
-        """Returns the index of substring in string or -1 if it
-        is not found.
-        """
-        if not substring:
-            return -1
-        if self.case_insensitive:
-            substring = substring.lower()
-        curr_node = 0
-        i = 0
-        while i < len(substring):
-            edge = self.edges.get((curr_node, substring[i]))
-            if not edge:
-                return -1
-            ln = min(edge.length + 1, len(substring) - i)
-            if substring[i:i + ln] != self.string[edge.first_char_index:edge.first_char_index + ln]:
-                return -1
-            i += edge.length + 1
-            curr_node = edge.dest_node_index
-        return edge.first_char_index - len(substring) + ln
-        
-    def has_substring(self, substring):
-        return self.find_substring(substring) != -1
+    def build_suffix_tree(self):
+        self.size = len(self._string)
+
+        """Root is a special node with start and end indices as -1,
+        as it has no parent from where an edge comes to root"""
+        self.rootEnd = -1
+        self.root = self.new_node(-1, self.rootEnd)
+        self.activeNode = self.root  # First activeNode will be root
+        for i in range(self.size):
+            self.extend_suffix_tree(i)
+
+    def __str__(self):
+        return "\n".join(map(str, self.edges.values()))
+
+    def print_dfs(self):
+        for sub in self.walk_dfs(self.root):
+            print(sub)
+
+
+if __name__ == "__main__":
+    print("FUCK")
+    S = SuffixTree("GAGAGAGA$")
+    S.build_suffix_tree()
+    S.print_dfs()
