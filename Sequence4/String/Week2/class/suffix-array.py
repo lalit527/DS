@@ -1,23 +1,24 @@
 #Uses python3
 import sys
+sys.setrecursionlimit(10**7)
 from collections import OrderedDict
 
 class Node:
-  def __init__(self, label):
+  def __init__(self, label, index):
+    self.index = index
     self.label = label
     self.next = {}
 
+
 class SuffixTree:
   def __init__(self):
-    self.root = Node(None)
+    self.root = Node(None, None)
   
   def insert(self, text):
     for i in range(len(text) - 1, -1, -1):
-      found = False
       current = self.root
       j = i
       while j < len(text):
-        print(j, current.next)
         if text[j] in current.next:
           child = current.next[text[j]]
           label = child.label
@@ -29,17 +30,18 @@ class SuffixTree:
             j = k
           else:
             exist, new = label[k - j], text[k]
-            mid = Node(label[:k-j])
-            mid.next[new] = Node(text[k:])
+            mid = Node(label[:k - j], child.index)
+            mid.next[new] = Node(text[k:], j)
             mid.next[exist] = child
-            child.label = label[k-j:]
+            child.label = label[k - j:]
             current.next[text[j]] = mid
         else:
-          current.next[text[j]] = Node(text[j:])
+          current.next[text[j]] = Node(text[j:], j)
+    
 
 def print_output(root):
   for child in root.next:
-    print(root.next[child].label)
+    print(root.next[child].label, '->', root.next[child].index)
     print_output(root.next[child])
 
 
@@ -49,16 +51,3 @@ if __name__ == '__main__':
     T = SuffixTree()
     T.insert(text)
     print_output(T.root)
-
-"""
-AAC$
-$
-CCAAGCTGCTAGAGG
-CATGCTGGGCTGGCT
-AAAAAAAAAAAAAAAAAAAA
-TTTTTTTTTTTTTTTTTTTT
-CCAAGCTGCTAGAGG
-CATGCTGGGCTGGCT
-ATGCGATGACCTGACTGA
-CTCAACGTATTGGCCAGA
-"""

@@ -7,17 +7,16 @@ class Node:
     self.label = label
     self.next = {}
 
+
 class SuffixTree:
   def __init__(self):
     self.root = Node(None)
   
   def insert(self, text):
     for i in range(len(text) - 1, -1, -1):
-      found = False
       current = self.root
       j = i
       while j < len(text):
-        print(j, current.next)
         if text[j] in current.next:
           child = current.next[text[j]]
           label = child.label
@@ -29,19 +28,25 @@ class SuffixTree:
             j = k
           else:
             exist, new = label[k - j], text[k]
-            mid = Node(label[:k-j])
+            mid = Node(label[:k - j])
             mid.next[new] = Node(text[k:])
             mid.next[exist] = child
-            child.label = label[k-j:]
+            child.label = label[k - j:]
             current.next[text[j]] = mid
         else:
           current.next[text[j]] = Node(text[j:])
-
-def print_output(root):
+    
+def print_output(root, r):
   for child in root.next:
-    print(root.next[child].label)
-    print_output(root.next[child])
+    result = root.next[child].label
+    if result.find("#") > 0:
+      print(result)
+      r.res += result[0]
+    print_output(root.next[child], r)
 
+class Result:
+  def __init__(self):
+    self.res = ''
 
 if __name__ == '__main__':
     patterns = sys.stdin.read().split()
@@ -49,4 +54,6 @@ if __name__ == '__main__':
     pattern = patterns[1]
     T = SuffixTree()
     T.insert(text + '#' + pattern + '$')
-    print_output(T.root)
+    r = Result()
+    print_output(T.root, r)
+    print('sssss',r.res)

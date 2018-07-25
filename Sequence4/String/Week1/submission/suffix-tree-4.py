@@ -1,5 +1,6 @@
 #Uses python3
 import sys
+sys.setrecursionlimit(10**7)
 from collections import OrderedDict
 
 class Node:
@@ -7,39 +8,35 @@ class Node:
     self.label = label
     self.next = {}
 
+
 class SuffixTree:
   def __init__(self):
     self.root = Node(None)
   
   def insert(self, text):
-    count = 1
     for i in range(len(text) - 1, -1, -1):
       current = self.root
       j = i
       while j < len(text):
-        print(j)
         if text[j] in current.next:
-          _next = current.next[text[j]]
-          label = _next.label
+          child = current.next[text[j]]
+          label = child.label
           k = j + 1
           while k - j < len(label) and text[k] == label[k - j]:
             k += 1
           if k - j == len(label):
-            current = _next
+            current = child
             j = k
           else:
-            exist, new = label[k -j], text[k]
+            exist, new = label[k - j], text[k]
             mid = Node(label[:k - j])
             mid.next[new] = Node(text[k:])
-            mid.next[exist] = _next
-            _next.label = label[k - j:]
+            mid.next[exist] = child
+            child.label = label[k - j:]
             current.next[text[j]] = mid
         else:
           current.next[text[j]] = Node(text[j:])
-        # count += 1
-        # if count == 100:
-        #   break
-          
+    
 
 def print_output(root):
   for child in root.next:
