@@ -6,7 +6,6 @@ class SuffixTreeNode:
     self.start = start
     self.end = end
 
-
 def lcp_suffix(S, i, j, equal):
   n = len(S)
   lcp = max(0, equal)
@@ -42,7 +41,7 @@ def compute_lcp_array(S, order):
     suffix = (suffix + 1) % n
   return lcp_array
 
-def build_suffix_tree_from_array(S, order, lcpArray):
+def build_suffix_tree_from_array(S, order, lcp_array):
   n = len(S)
   root = SuffixTreeNode(None, {}, 0, -1, -1)
   lcp_prev = 0
@@ -59,7 +58,7 @@ def build_suffix_tree_from_array(S, order, lcpArray):
       mid_node = break_edge(cur_node, S, edge_start, offset)
       cur_node = create_new_leaf(mid_node, S, suffix)
     if i < n - 1:
-      lcp_prev = lcpArray[i]
+      lcp_prev = lcp_array[i]
   return root
 
 def create_new_leaf(node, S, suffix):
@@ -84,6 +83,7 @@ def print_output(root):
     print(root.start, '->', root.end, '->', root.depth, '--->>', root.children)
     print_output(root.children[child])
 
+
 def main():
   S = "GTAGT$"
   order = [5, 2, 3, 0, 4, 1]
@@ -94,5 +94,3 @@ def main():
 
 if __name__ == "__main__":
   main()
-
-
