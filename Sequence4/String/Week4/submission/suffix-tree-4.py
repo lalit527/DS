@@ -1,3 +1,8 @@
+# python3
+import sys
+sys.setrecursionlimit(10**7)
+
+
 class SuffixTreeNode:
   def __init__(self, parent, children, depth, start, end):
     self.parent = parent
@@ -78,6 +83,7 @@ def break_edge(node, S, start, offset):
   return mid_node
 
 def print_output(root):
+  
   print(root.start, root.end + 1)
   for child, value in root.children.items():
     print_output(root.children[child])
@@ -89,20 +95,11 @@ def OutputEdges(tree, node_id):
       OutputEdges(tree, edge[0])
 
 
-def main():
-  S = "GTAGT$"
-  order = [5, 2, 3, 0, 4, 1]
-  lcp = [0, 0, 2, 0, 1]
-  # lcp_array = compute_lcp_array(S, order)
-  # order = [3, 2, 1, 0]
-  # lcp = [0, 1, 2]
-  root = build_suffix_tree_from_array(S, order, lcp)
-  print_output(root)
 
-if __name__ == "__main__":
-  main()
-"""
-AAA$
-3 2 1 0
-0 1 2
-"""
+if __name__ == '__main__':
+  text = sys.stdin.readline().strip()
+  sa = list(map(int, sys.stdin.readline().strip().split()))
+  lcp = list(map(int, sys.stdin.readline().strip().split()))
+  print(text)
+  root = build_suffix_tree_from_array(text, sa, lcp)
+  print_output(root)
