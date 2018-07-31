@@ -1,5 +1,8 @@
 {
     "python.linting.enabled": false,
     "python.formatting.provider": "autopep8",
-    "python.pythonPath": "/Users/lality/anaconda/bin/python"
+    "python.pythonPath": "/Users/lality/anaconda/bin/python",
+    "files.associations": {
+        "iterator": "cpp"
+    }
 }
