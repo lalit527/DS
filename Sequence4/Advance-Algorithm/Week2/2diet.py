@@ -9,6 +9,10 @@ class Equation:
         self.a = a
         self.b = b
 
+class Pleasure:
+    def __init__(self, c):
+      self.c = c
+
 class Position:
     def __init__(self, column, row):
         self.column = column
@@ -41,7 +45,8 @@ def scale_pivot(a, b, pivot_element):
   size = len(a)
   divisor = a[pivot_element.row][pivot_element.column]
   for j in range(pivot_element.column, size):
-    a[pivot_element.row][j] /= divisor
+    print(j)
+    # a[pivot_element.row][j] /= divisor
   
   b[pivot_element.row] /= divisor
 
@@ -94,6 +99,16 @@ def PrintColumn(column):
     for row in range(size):
         print("%.20lf" % column[row])
 
+def prepare(A, b, c, n, m):
+  while n < m:
+    A.append(m, 0)
+    b.append(0)
+    n += 1
+
+
+def solve_diet_problem(A, b, c, n, m):
+  prepare(A, b, c, n, m)
+
 def ReadEquation():
     n, m = list(map(int, stdin.readline().split()))
     A = []
@@ -101,14 +116,15 @@ def ReadEquation():
       A += [list(map(int, stdin.readline().split()))]
     b = list(map(int, stdin.readline().split()))
     c = list(map(int, stdin.readline().split()))
-    print(A)
-    print(b, c)
+    return (Equation(A, b), Pleasure(c))
+
 
 
 if __name__ == "__main__":
-    equation = ReadEquation()
-    # print(equation.a)
-    # print(equation.b)
-    # solution = SolveEquation(equation)
-    # PrintColumn(solution)
+    equation, pleasure = ReadEquation()
+    print(equation.a)
+    print(equation.b)
+    print(pleasure.c)
+    solution = SolveEquation(equation)
+    PrintColumn(solution)
     # exit(0)
