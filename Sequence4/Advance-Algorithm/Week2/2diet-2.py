@@ -1,4 +1,5 @@
 # python3
+from sys import stdin
 
 EPS = 1e-6
 PRECISION = 20
@@ -12,16 +13,6 @@ class Position:
     def __init__(self, column, row):
         self.column = column
         self.row = row
-
-def ReadEquation():
-    size = int(input())
-    a = []
-    b = []
-    for row in range(size):
-        line = list(map(float, input().split()))
-        a.append(line[:size])
-        b.append(line[size])
-    return Equation(a, b)
 
 def SelectPivotElement(a, used_rows, used_columns):
     # This algorithm selects the first free element.
@@ -96,15 +87,28 @@ def back_substitution(a, b):
       b[j] -= a[j][i] * v
       a[j][i] = 0
 
+
+
 def PrintColumn(column):
     size = len(column)
     for row in range(size):
         print("%.20lf" % column[row])
 
+def ReadEquation():
+    n, m = list(map(int, stdin.readline().split()))
+    A = []
+    for i in range(n):
+      A += [list(map(int, stdin.readline().split()))]
+    b = list(map(int, stdin.readline().split()))
+    c = list(map(int, stdin.readline().split()))
+    print(A)
+    print(b, c)
+
+
 if __name__ == "__main__":
     equation = ReadEquation()
-    print(equation.a)
-    print(equation.b)
-    solution = SolveEquation(equation)
-    PrintColumn(solution)
-    exit(0)
+    # print(equation.a)
+    # print(equation.b)
+    # solution = SolveEquation(equation)
+    # PrintColumn(solution)
+    # exit(0)
