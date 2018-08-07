@@ -27,3 +27,8 @@ if __name__ == "__main__":
   pattern = "abra"
   text = "abracadabra"
   print(kmp_pattern(pattern, text))
+
+"""
+ATAT
+GATATATGCATATACTT
+"""
