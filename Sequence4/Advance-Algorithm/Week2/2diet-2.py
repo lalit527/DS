@@ -94,6 +94,21 @@ def PrintColumn(column):
     for row in range(size):
         print("%.20lf" % column[row])
 
+class LinearEquationSolver:
+    def __init__(self, A, b, c):
+        self.n = A.length
+        self.m = c.length
+        self.A = A
+        self.b = b
+        self.c = c
+        total = n + m + 1
+    
+    def compute(self, total):
+        arr = [None] * total
+        for i in range(total):
+            arr[i] = i
+        gen_process_combinators(arr, total, )
+
 def ReadEquation():
     n, m = list(map(int, stdin.readline().split()))
     A = []

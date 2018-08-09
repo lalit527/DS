@@ -90,12 +90,12 @@ def OutputEdges(tree, node_id):
 
 
 def main():
-  S = "GTAGT$"
-  order = [5, 2, 3, 0, 4, 1]
-  lcp = [0, 0, 2, 0, 1]
+  S = "AAA$"
+  # order = [5, 2, 3, 0, 4, 1]
+  # lcp = [0, 0, 2, 0, 1]
   # lcp_array = compute_lcp_array(S, order)
-  # order = [3, 2, 1, 0]
-  # lcp = [0, 1, 2]
+  order = [3, 2, 1, 0]
+  lcp = [0, 1, 2]
   root = build_suffix_tree_from_array(S, order, lcp)
   print_output(root)
 
