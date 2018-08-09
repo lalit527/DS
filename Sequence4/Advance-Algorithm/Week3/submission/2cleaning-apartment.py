@@ -1,6 +1,5 @@
 # python3
 import itertools
-import os
 
 class HamiltonSAT:
   def __init__(self, n, m):
@@ -53,21 +52,13 @@ class HamiltonSAT:
             self.count += 1
             self.clauses += str(-self.data[i][k]) + " " + str(-self.data[j][k + 1]) + " 0\n"
 
-    def sat_test():
-      with open('tmp5.cnf', 'w') as f:
-      f.write("p cnf {} {}\n".format(999, len(self.clauses)))
-      for c in self.clauses:
-          c.append(0)
-          f.write(" ".join(map(str, c))+"\n")
-
     each_vertex_belog_path()
     each_vertex_only_once()
     each_path_occupied()
     each_vertex_only_once()
     nonadjacent_vertices_path()
-    # print("{0} {1}".format(self.count, self.vertexes * self.vertexes))
-    # print(self.clauses)
-    # print("{0} {1}\n%s".format(self.count, self.vertexes * self.vertexes, self.clauses.to))
+    print("{0} {1}".format(self.count, self.vertexes * self.vertexes))
+    print(self.clauses)
 
 # This solution prints a simple satisfiable formula
 # and passes about half of the tests.
