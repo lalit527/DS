@@ -103,8 +103,6 @@ def PrintColumn(column):
 
 if __name__ == "__main__":
     equation = ReadEquation()
-    print(equation.a)
-    print(equation.b)
     solution = SolveEquation(equation)
     PrintColumn(solution)
     exit(0)
