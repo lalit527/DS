@@ -92,7 +92,7 @@ def back_substitution(a, b):
   size = len(a)
   for i in range(size - 1, -1, -1):
     v = b[i]
-    for j in range(i+1, size):
+    for j in range(0, i):
       b[j] -= a[j][i] * v
       a[j][i] = 0
 

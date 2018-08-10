@@ -5,7 +5,7 @@ class HamiltonSAT:
   def __init__(self, n, m):
     self.vertexes = n
     self.edges = m
-    self.clauses = ""
+    self.clauses = []
     self.matrix = [[False for j in range(n)] for i in range(n)]
     cnt = 1
     self.data = [[(i+j) for j in range(n)] for i in range(1, n*n, n)]
@@ -19,37 +19,42 @@ class HamiltonSAT:
 
     def each_vertex_belog_path():
       for (i, j) in itertools.product(nrange, repeat=2):
-        self.clauses += str(self.data[i][j]) + " "
+        self.clauses.append(str(self.data[i][j]) + " ")
         if j == n - 1:
           self.count += 1
-          self.clauses += "0\n"
+          self.clauses.append("0\n")
     
     def each_vertex_only_once():
       for (i, j) in itertools.product(nrange, repeat=2):
         for k in range(i+1, n):
           self.count += 1
-          self.clauses += str(-self.data[i][j]) + " " + str(-self.data[k][j]) + " 0\n"
-
+          self.clauses.append(str(-self.data[i][j]) + " ") 
+          self.clauses.append(str(-self.data[k][j]) + " ") 
+          self.clauses.append(str("0\n"))
     def each_path_occupied():
       for (i, j) in itertools.product(nrange, repeat=2):
         # print('hkehbhjke', i, j)
-        self.clauses += str(self.data[j][i]) + " "
+        self.clauses.append(str(self.data[j][i]) + " ")
         if j == n - 1:
           self.count += 1
-          self.clauses += "0\n"
+          self.clauses.append("0\n")
 
     def vetrex_diff_pos():
       for (i, j) in itertools.product(nrange, repeat=2):
         for k in range(j+1, n):
           self.count += 1
-          self.clauses += str(-self.data[i][j]) + " " + str(-self.data[i][k]) + " 0\n"
+          self.clauses.append(str(-self.data[i][j]) + " ")
+          self.clauses.append(str(-self.data[i][k]) + " ")
+          self.clauses.append("0\n")
     
     def nonadjacent_vertices_path():
       for (i, j) in itertools.product(nrange, repeat=2):
         if not self.matrix[i][j] and j != i:
           for k in range(n - 1):
             self.count += 1
-            self.clauses += str(-self.data[i][k]) + " " + str(-self.data[j][k + 1]) + " 0\n"
+            self.clauses.append(str(-self.data[i][k]) + " ")
+            self.clauses.append(str(-self.data[j][k + 1]) + " ")
+            self.clauses.append("0\n")
     # print("1 %d", self.count)
     each_vertex_belog_path()
     # print("2 %d", self.count)
@@ -61,7 +66,7 @@ class HamiltonSAT:
     # print("5 %d", self.count)
     nonadjacent_vertices_path()
     # print("6 %d", self.count)
-    print("{0} {1}\n{2!s}".format(self.count, self.vertexes * self.vertexes, self.clauses))
+    print("{0} {1}\n{2!s}".format(self.count, self.vertexes * self.vertexes, "".join(self.clauses)))
 
 # This solution prints a simple satisfiable formula
 # and passes about half of the tests.
