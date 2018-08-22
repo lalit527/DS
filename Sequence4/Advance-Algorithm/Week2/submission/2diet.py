@@ -112,7 +112,7 @@ def solve_diet_problem(n, m, A, b, c):
   add_equations(n, m, A, b)
   l = n + m + 1
   ans = -1
-  best_score = float('-inf')
+  best_score = -float('inf')
   best_result = None
   for x in range(2 ** l):
     used_index = [i for i in range(l) if ((x / 2 ** i) % 2) // 1 == 1]
@@ -124,9 +124,8 @@ def solve_diet_problem(n, m, A, b, c):
     _A = [A[i] for i in used_index]
     _b = [b[i] for i in used_index]
     solved, result = solve_equation(copy.deepcopy(Equation(_A, _b)))
-    print('1', solved, result)
     if solved:
-      isAccepted, ans, bestScore = checkResult(n, m, A, b, c, result, last_equation, ans, best_score)
+      isAccepted, ans, best_score = checkResult(n, m, A, b, c, result, last_equation, ans, best_score)
       if isAccepted:
         best_result = result
   return [ans, best_result]
@@ -138,7 +137,6 @@ def solve_diet_problem(n, m, A, b, c):
 if __name__ == "__main__":
   n, m, A, b, c = ReadEquation()
   t, data = solve_diet_problem(n, m, A, b, c)
-  print(t, data)
   if t == -1:
     print("No solution")
   elif t == 0:
