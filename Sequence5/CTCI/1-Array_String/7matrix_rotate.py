@@ -1,7 +1,6 @@
 def rotate_matrix(mat):
   n = len(mat)
-  if n == 0 or n != len(mat[0]):
-    return False
+  m = len(mat[0])
   for layer in range(n//2):
     first = layer
     last = n - 1 - layer
