@@ -16,8 +16,13 @@ def delete_middle(S):
     prev = tmp
     tmp = tmp.next
   prev.next = tmp.next
-   
 
+def delete_middle_nohead(node):
+  tmp = node
+  while tmp.next is not None:
+    tmp.data  = tmp.next.data
+    tmp = tmp.next
+  tmp.next = None
 
 S = singlell.SingleLinkList()
 S.appendRight(1)
@@ -28,5 +33,7 @@ S.appendRight(5)
 S.appendRight(6)
 S.appendRight(7)
 # S.appendRight(7)
-delete_middle(S)
+# delete_middle(S)
+middle = get_middle(S)
+delete_middle_nohead(middle)
 S.print_list()
