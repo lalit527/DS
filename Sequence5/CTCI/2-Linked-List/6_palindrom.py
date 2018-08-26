@@ -9,6 +9,13 @@ def length_list(S):
     head = head.next
   return h
 
+def length_list_h(head):
+  h = 0
+  while head is not None:
+    h += 1
+    head = head.next
+  return h
+
 def middle_node(S):
   prev = None
   slow = S.head
@@ -82,6 +89,30 @@ def is_palindrom_opt1(S):
     prev_node.next = sec_head
 
   return True
+
+class Result:
+  def __init__(self, node, result):
+    self.result = result
+    self.node = node
+
+def is_palindrome_rec(head):
+  l = length_list_h(head)
+  p = _is_palinfrom_rec(head, l)
+  return p.result
+
+def _is_palinfrom_rec(head, length):
+  if head is None or length <= 0:
+    return Result(head, True)
+  elif length == 1:
+    return Result(head.next, True)
+
+  res = _is_palinfrom_rec(head.next, length - 2)
+  if not res.result or res.node is None:
+    return res
+  
+  res.result = (res.node.data == head.data)
+  res.node = res.node.next
+  return res
   
 
   
@@ -96,5 +127,5 @@ S.appendRight(5)
 S.appendRight(8)
 S.appendRight(5)
 S.appendRight(3)
-print(is_palindrom_opt1(S))
+print(is_palindrome_rec(S.head))
 S.print_list()
