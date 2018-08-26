@@ -1,5 +1,4 @@
 # python3
-from sys import stdin
 
 EPS = 1e-6
 PRECISION = 20
@@ -9,14 +8,20 @@ class Equation:
         self.a = a
         self.b = b
 
-class Pleasure:
-    def __init__(self, c):
-      self.c = c
-
 class Position:
     def __init__(self, column, row):
         self.column = column
         self.row = row
+
+def ReadEquation():
+    size = int(input())
+    a = []
+    b = []
+    for row in range(size):
+        line = list(map(float, input().split()))
+        a.append(line[:size])
+        b.append(line[size])
+    return Equation(a, b)
 
 def SelectPivotElement(a, used_rows, used_columns):
     # This algorithm selects the first free element.
@@ -45,8 +50,7 @@ def scale_pivot(a, b, pivot_element):
   size = len(a)
   divisor = a[pivot_element.row][pivot_element.column]
   for j in range(pivot_element.column, size):
-    print(j)
-    # a[pivot_element.row][j] /= divisor
+    a[pivot_element.row][j] /= divisor
   
   b[pivot_element.row] /= divisor
 
@@ -88,43 +92,17 @@ def back_substitution(a, b):
   size = len(a)
   for i in range(size - 1, -1, -1):
     v = b[i]
-    for j in range(i+1, size):
+    for j in range(0, i):
       b[j] -= a[j][i] * v
       a[j][i] = 0
-
-
 
 def PrintColumn(column):
     size = len(column)
     for row in range(size):
-        print("%.20lf" % column[row])
-
-def prepare(A, b, c, n, m):
-  while n < m:
-    A.append(m, 0)
-    b.append(0)
-    n += 1
-
-
-def solve_diet_problem(A, b, c, n, m):
-  prepare(A, b, c, n, m)
-
-def ReadEquation():
-    n, m = list(map(int, stdin.readline().split()))
-    A = []
-    for i in range(n):
-      A += [list(map(int, stdin.readline().split()))]
-    b = list(map(int, stdin.readline().split()))
-    c = list(map(int, stdin.readline().split()))
-    return (Equation(A, b), Pleasure(c))
-
-
+        print("%.20lf" % column[row], end=" ")
 
 if __name__ == "__main__":
-    equation, pleasure = ReadEquation()
-    print(equation.a)
-    print(equation.b)
-    print(pleasure.c)
+    equation = ReadEquation()
     solution = SolveEquation(equation)
     PrintColumn(solution)
-    # exit(0)
+    exit(0)

@@ -127,7 +127,7 @@ def solve_diet_problem( n, mm, A, b, c, Big_number=VeryBigNumber ):
         bs = [b[i] for i in usedIndex]
         # print(As, bs)
         solved, result = SolveEquation(copy.deepcopy(Equation(As, bs)))
-        # print(As, bs, result)
+        print('1', solved, result)
         if solved:
             isAccepted, ans, bestScore = checkResult(n, mm, A, b, c, result, lastEquation, ans, bestScore)
             if isAccepted:
@@ -167,3 +167,15 @@ if anst == 0:
     print(' '.join(list(map(lambda x: '%.18f' % x, ansx))))
 if anst == 1:
     print("Infinity")
+
+
+# 3
+# 2
+# 3 42
+# 8 50001
+# 11 230040
+# 8 50000
+# 3 40
+# 11 230040
+# 2
+# 8 3

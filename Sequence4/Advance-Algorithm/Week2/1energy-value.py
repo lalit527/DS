@@ -99,7 +99,7 @@ def back_substitution(a, b):
 def PrintColumn(column):
     size = len(column)
     for row in range(size):
-        print("%.20lf" % column[row])
+        print("%.20lf" % column[row], end=" ")
 
 if __name__ == "__main__":
     equation = ReadEquation()

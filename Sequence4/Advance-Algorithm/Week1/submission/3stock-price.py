@@ -79,25 +79,12 @@ def max_flow(graph, s, t):
   
   return flow
 
-def response(graph, flights):
-  for i in range(flights):
-    job = -1
-    for id in graph.get_ids(i + 1):
-      e = graph.get_edge(id)
-      if e.flow == 1:
-        job = e.v - flights
-        break
-    print(job, end = ' ')
-  print('')
-
-
-
 def read_data():
     stock, point = map(int, input().split())
     stock_point = []
     for i in range(stock):
       stock_point.append(list(map(int, input().split())))
-    print(stock_point)
+    # print(stock_point)
     graph = FlowGraph((stock * 2) + 2, stock)
 
     for i in range(stock):
@@ -110,7 +97,7 @@ def read_data():
         _less = True
 
         for k in range(point):
-          print('stock', i, j, k)
+          # print('stock', i, j, k)
           if stock_point[i][k] >= stock_point[j][k]:
             _less = False
             break
@@ -132,11 +119,11 @@ def response(graph, n):
       if e.flow > 0:
         min_path += 1
         break
-  print('ans', n, min_path)
+  # print('ans', n, min_path)
   return n - min_path
 
 if __name__ == '__main__':
     graph = read_data()
     # print(graph)
-    print(max_flow(graph, 0, graph.size() - 1))
+    max_flow(graph, 0, graph.size() - 1)
     print(response(graph, graph.stock))

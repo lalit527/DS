@@ -26,4 +26,11 @@ def kmp_pattern(pattern, text):
 if __name__ == "__main__":
   pattern = "abra"
   text = "abracadabra"
+  # pattern = "waterbottlewaterbottle"
+  # text = "erbottlewat"
   print(kmp_pattern(pattern, text))
+
+"""
+ATAT
+GATATATGCATATACTT
+"""
