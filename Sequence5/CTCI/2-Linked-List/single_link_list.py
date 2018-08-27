@@ -8,6 +8,21 @@ class SingleLinkList:
     self.head = None
     self.tail = None
 
+  def make_intersect(self, node1, node2):
+    if node1 is None or node2 is None:
+      return None
+    node1.next = node2
+
+  def append(self, node, data):
+    if node is None and self.head:
+      return node
+    new_node = SingleLinkList.Node(data)
+    if self.head is None:
+      self.head = new_node
+    else:
+      node.next = new_node
+    return new_node
+
   def appendLeft(self, n):
     node = SingleLinkList.Node(n)
     tmp = self.head
