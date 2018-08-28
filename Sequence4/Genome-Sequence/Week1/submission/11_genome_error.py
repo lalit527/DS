@@ -1,10 +1,10 @@
-# python3
+# uses python3
 import sys
 from random import randint
 
-DEFAULT_READS_NUMBER = 5
-DEFAULT_MIN_OVERLAP_LENGTH = 0
-LENGTH_OF_READ = 0
+DEFAULT_READS_NUMBER = 1618
+DEFAULT_MIN_OVERLAP_LENGTH = 70
+LENGTH_OF_READ = 100
 
 class TrieNode(object):
 	def __init__(self):
