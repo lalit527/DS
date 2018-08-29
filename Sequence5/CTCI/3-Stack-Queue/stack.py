@@ -20,6 +20,9 @@ class Stack:
 
   def peek(self):
     return self.top.data if self.top else None
+
+  def is_empty(self):
+    return self.top is None
   
   def print_stack(self):
     top = self.top
@@ -27,8 +30,9 @@ class Stack:
       print(top.data)
       top = top.prev
 
-S = Stack()
-S.push(1)
-S.push(2)
-print(S.pop())
-S.print_stack()
+if __name__ == "__main__":
+  S = Stack()
+  S.push(1)
+  S.push(2)
+  print(S.pop())
+  S.print_stack()
