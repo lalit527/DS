@@ -3,19 +3,27 @@ class Stack:
     def __init__(self, data):
       self.data = data
       self.prev = None
+      self.size = 0
   
   def __init__(self):
     self.top = None
+    self.bottom = None
 
   def push(self, data):
     node = Stack.Node(data)
     node.prev = self.top
     self.top = node
+    self.size += 1
+    if self.bottom is None:
+      self.bottom = node
 
   def pop(self):
     top = self.top
     self.top = top.prev
     top.prev = None
+    self.size -= 1
+    if top == self.bottom:
+      self.bottom = None
     return top.data
 
   def peek(self):
@@ -24,6 +32,10 @@ class Stack:
   def is_empty(self):
     return self.top is None
   
+  def pop_first(self):
+    bottom = self.bottom
+    
+
   def print_stack(self):
     top = self.top
     while top:

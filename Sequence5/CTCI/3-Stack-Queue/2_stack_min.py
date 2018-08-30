@@ -20,6 +20,7 @@ class StackMin:
       top_min = self.stack_min.pop()
     return top
 
+
   def min_stack(self):
     return self.stack_min.peek()
 
