@@ -24,18 +24,25 @@ def merge_sort(s):
 
   left = merge_sort(left)
   right = merge_sort(right)
-  merge(s, left, right)
+
+  return merge(s, left, right)
 
 def merge(s, left, right):
   while (left and left.size > 0) or (right and right.size > 0):
-    if left and left.size == 0:
+    if left is None or left.size == 0:
       s.push(right.pop())
-    elif right and right.size == 0:
+    elif right is None or right.size == 0:
       s.push(left.pop())
     elif right.peek() > left.peek():
       s.push(left.pop())
     else:
       s.push(right.pop())
+
+  reverse_stack = Stack()
+  while s.size > 0:
+    reverse_stack.push(s.pop())
+
+  return reverse_stack
   
 
 
@@ -58,5 +65,5 @@ S.push(12)
 S.push(8)
 S.push(3)
 S.push(1)
-merge_sort(S)
-print_stack(S)
+R = merge_sort(S)
+print_stack(R)
