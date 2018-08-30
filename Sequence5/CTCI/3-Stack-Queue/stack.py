@@ -18,9 +18,12 @@ class Stack:
       self.bottom = node
 
   def pop(self):
+    if self.top is None:
+      return None
     top = self.top
     self.top = top.prev
-    top.prev = None
+    if top:
+      top.prev = None
     self.size -= 1
     if top == self.bottom:
       self.bottom = None
