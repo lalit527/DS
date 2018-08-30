@@ -3,11 +3,11 @@ class Stack:
     def __init__(self, data):
       self.data = data
       self.prev = None
-      self.size = 0
   
   def __init__(self):
     self.top = None
     self.bottom = None
+    self.size = 0
 
   def push(self, data):
     node = Stack.Node(data)
@@ -34,7 +34,7 @@ class Stack:
   
   def pop_first(self):
     bottom = self.bottom
-    
+
 
   def print_stack(self):
     top = self.top
