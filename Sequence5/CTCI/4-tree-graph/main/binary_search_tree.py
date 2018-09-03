@@ -89,14 +89,19 @@ class BinarySearchTree:
         Q.append(node.right)
 
 
-t = BinarySearchTree()
-t.insert_root(5)
-t.insert(t.root, 3)
-t.insert(t.root, 4)
-t.insert(t.root, 2)
-t.insert(t.root, 7)
-t.insert(t.root, 6)
-t.insert(t.root, 9)
-print(t.search(8))
-t.delete(7)
-t.print_level()
+def main():
+  t = BinarySearchTree()
+  t.insert_root(5)
+  t.insert(t.root, 3)
+  t.insert(t.root, 4)
+  t.insert(t.root, 2)
+  t.insert(t.root, 7)
+  t.insert(t.root, 6)
+  t.insert(t.root, 9)
+  print(t.search(8))
+  t.delete(7)
+  t.print_level()
+
+
+if __name__ == "__main__":
+  main()

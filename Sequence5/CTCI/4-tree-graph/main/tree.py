@@ -77,22 +77,25 @@ class Tree:
         self._print_tree(child)
 
 
+def main():
+  T = Tree()
+  n1 = T.insert(1, None)
+  n2 = T.insert(2, n1)
+  n3 = T.insert(3, n1)
+  n4 = T.insert(4, n1)
+  n5 = T.insert(5, n1)
+  n6 = T.insert(6, n1)
+  n51 = T.insert(7, n5)
+  n52 = T.insert(8, n5)
+  n53 = T.insert(9, n5)
+  n54 = T.insert(10, n5)
+  n41 = T.insert(41, n4)
+  n411 = T.insert(411, n41)
+  n21 = T.insert(21, n2)
+  T.delete(1)
+  T.print_tree()
 
-T = Tree()
-n1 = T.insert(1, None)
-n2 = T.insert(2, n1)
-n3 = T.insert(3, n1)
-n4 = T.insert(4, n1)
-n5 = T.insert(5, n1)
-n6 = T.insert(6, n1)
-n51 = T.insert(7, n5)
-n52 = T.insert(8, n5)
-n53 = T.insert(9, n5)
-n54 = T.insert(10, n5)
-n41 = T.insert(41, n4)
-n411 = T.insert(411, n41)
-n21 = T.insert(21, n2)
-T.delete(1)
-T.print_tree()
+if __name__ == "__main__":
+  main()
 
     

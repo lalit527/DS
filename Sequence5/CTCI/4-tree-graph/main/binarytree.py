@@ -68,9 +68,12 @@ class BinaryTree:
       if node.right is not None:
         Q.append(node.right)
 
+def main():
+  BT = BinaryTree()
+  n1 = BT.insertLeft(1)
+  n2 = BT.insertLeft(2, n1)
+  n3 = BT.insertRight(3, n1)
+  BT.print_level()
 
-BT = BinaryTree()
-n1 = BT.insertLeft(1)
-n2 = BT.insertLeft(2, n1)
-n3 = BT.insertRight(3, n1)
-BT.print_level()
+if __name__ == "__main__":
+  main()
