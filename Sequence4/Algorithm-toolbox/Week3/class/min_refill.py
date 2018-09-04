@@ -13,7 +13,7 @@ def min_refill(x, n, L):
 
   return numRefills
 
-x = [0, 30, 32, 33, 37, 49, 53, 59, 61]
+x = [0, 5, 30, 32, 33, 37, 49, 53, 59, 61]
 n = len(x) - 1
 L = 16
 
