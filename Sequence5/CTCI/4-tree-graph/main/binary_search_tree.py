@@ -18,16 +18,17 @@ class BinarySearchTree:
     self._insert(root, data)
 
   def _insert(self, root, data):
-    if root.data > data:
-      if root.left is None:
-        root.left = Node(data)
+    if root:
+      if root.data > data:
+        if root.left is None:
+          root.left = Node(data)
+        else:
+          self.insert(root.left, data)
       else:
-        self.insert(root.left, data)
-    else:
-      if root.right is None:
-        root.right = Node(data)
-      else:
-        self.insert(root.right, data)
+        if root.right is None:
+          root.right = Node(data)
+        else:
+          self.insert(root.right, data)
 
   def search(self, data):
     root = self.root
