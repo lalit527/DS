@@ -15,7 +15,7 @@ def _make_tree(arr, start, end):
     node.right = _make_tree(arr, mid + 1, end)
     return node
 
-
-arr = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-bst = make_tree(arr)
-bst.print_level()
+if __name__ == "__main__":
+  arr = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+  bst = make_tree(arr)
+  bst.print_level()
