@@ -41,3 +41,4 @@ sequence = list(optimal_sequence_memo(n))
 print(len(sequence) - 1)
 for x in sequence:
     print(x, end=' ')
+
