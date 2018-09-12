@@ -49,6 +49,6 @@ class Trie:
 
 
 T = Trie()
-patterns = ["AT", "AG", "AC"]
+patterns = ["ATAGA", "ATC", "GAT"]
 T.insert_patterns(patterns)
 T.show()
