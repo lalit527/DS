@@ -4,9 +4,10 @@ sys.setrecursionlimit(10**7)
 from collections import OrderedDict
 
 class Node:
-  def __init__(self, label):
+  def __init__(self, label, n):
     self.label = label
     self.next = {}
+    self.node = n
 
 
 class SuffixTree:
@@ -35,7 +36,7 @@ class SuffixTree:
             child.label = label[k - j:]
             current.next[text[j]] = mid
         else:
-          current.next[text[j]] = Node(text[j:])
+          current.next[text[j]] = Node(text[j:], n)
     
 
 def print_output(root):
