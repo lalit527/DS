@@ -11,7 +11,21 @@ def pattern_matching_suffix_array(pattern, text, suffixes):
   n = len(text)
   min_index = 0
   max_index = n
+  while min_index < max_index:
+    mid_index = (min_index + max_index) // 2
+    if pattern > text[suffixes[mid_index]]:
+      min_index = mid_index + 1
+    else:
+      max_index = mid_index - 1
 
+  start = min_index
+  max_index = n
+  while min_index < max_index:
+    mid_index = (min_index + max_index) // 2
+    if pattern > text[suffixes[mid_index]]:
+      min_index = mid_index + 1
+    else:
+      max_index = mid_index - 1
 
 
 text = "panamabananas$"
