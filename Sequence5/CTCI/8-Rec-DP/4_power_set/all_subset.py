@@ -28,10 +28,10 @@ def convert_int_set(x, set):
   index = 0
   k = x
   while k > 0:
-    if ((k & 1) == 1):
+    if ((k & 1) == 1): # Checks if value is odd
       subset.append(set[index])
     index += 1
-    k >>= 1
+    k >>= 1 # Eq k // 2
   return subset
 
 if __name__ == "__main__":
