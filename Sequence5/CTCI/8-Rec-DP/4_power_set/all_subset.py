@@ -4,14 +4,19 @@ def get_subset(set, index):
     all_subset.append([])
   else:
     all_subset = get_subset(set, index + 1)
+    print('1',index, all_subset)
     item = set[index]
     more_subset = []
     for subset in all_subset:
+      print(2, subset)
       new_subset = []
       new_subset.extend(subset)
       new_subset.append(item)
       more_subset.append(new_subset)
+      print(3, new_subset)
+      print(4, more_subset)
     all_subset.extend(more_subset)
+    print(5, all_subset)
   
   return all_subset
 
@@ -36,5 +41,5 @@ def convert_int_set(x, set):
 
 if __name__ == "__main__":
   A = [0, 1, 2]
-  subset = get_subset_2(A)
+  subset = get_subset(A, 0)
   print(subset)
