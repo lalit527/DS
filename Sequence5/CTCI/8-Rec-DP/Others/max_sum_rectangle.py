@@ -18,23 +18,24 @@ def kadanes(temp):
     if max_so_far > _max:
       max_start = current_start
       max_end = i
-      max = max_so_far
-  return KadanesResult(max, max_start, max_end)
+      _max = max_so_far
+  return KadanesResult(_max, max_start, max_end)
+    
 
 
 def max_sum_rectangle(rectangle):
   rows = len(rectangle)
   cols = len(rectangle[0])
-  result = Result(float('-inf'), -1, -1, -1, -1)
+  result = Result(float("-inf"), -1, -1, -1, -1)
   for left in range(cols):
     temp = [0 for _ in range(rows)]
     for right in range(left, cols):
       for i in range(rows):
         temp[i] += rectangle[i][right]
-      
-      kadane_result = kadanes(temp)
-      if kadane_result.maxSum > result.maxSum:
-        result = Result(kadane_result.maxSum, left, right, kadane_result.start, kadane_result.end)
+
+      kadanes_result = kadanes(temp)
+      if kadanes_result.maxSum >  result.maxSum:
+        result = Result(kadanes_result.maxSum, left, right, kadanes_result.start, kadanes_result.end)
   return result
 
 M = [
