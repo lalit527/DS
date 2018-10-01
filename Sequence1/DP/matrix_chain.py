@@ -15,17 +15,19 @@ def _matrix_chain(arr, i, j):
 def matrix_chain_dp(arr):
   n = len(arr)
   T = [[0 for _ in range(n)] for _ in range(n)]
+  S = [[0 for _ in range(n)] for _ in range(n)]
   for l in range(2, n):
-    for i in range(n - l):
-      j = i + l
+    for i in range(n - l + 1):
+      j = i + l - 1
       T[i][j] = float('inf')
-      for k in range(i + 1, j):
-        temp = T[i][k] + T[k][j] + arr[i] * arr[k] * arr[j]
+      for k in range(i, j):
+        temp = T[i][k] + T[k + 1][j] + arr[i - 1] * arr[k] * arr[j]
         if temp < T[i][j]:
           T[i][j] = temp
+          S[i][j] = k
   return T
 
 
 
-arr = [1, 2, 3, 4, 3]; 
+arr = [30, 35, 15, 5, 10, 20, 25]
 print(matrix_chain_dp(arr))
