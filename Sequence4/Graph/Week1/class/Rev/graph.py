@@ -41,6 +41,9 @@ class Graph:
     except KeyError:
       return None
 
+  def all_vertexes(self):
+    return self.vertexes.keys()
+
   def __str__(self):
     result = ""
     for key, value in self.vertexes.items():
