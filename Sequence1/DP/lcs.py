@@ -24,7 +24,7 @@ def lcs_dp(s1, s2):
       else:
         T[i][j] = max(T[i - 1][j], T[i][j - 1])
   return T
-  
+
 s1 = "ACCGGTCGAGTGCGCGGAAGCCGGCCGAA"
 s2 = "GTCGTTCGGAATGCCGTTGCTCTGTAAA"
-print(lcs(s1, s2))
+print(lcs_dp(s1, s2))
