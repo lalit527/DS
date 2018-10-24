@@ -1,6 +1,23 @@
 import sys
 
+# def is_rainbow(n, A):
+#   counter = 0
+#   mid = n // 2
+#   j = n - 1
+#   if n >= 7 and n <= 100:
+#     for i in range(mid):
+#       if A[i] == A[j] and A[mid] == 7:
+#         counter += 1
+#       j -= 1
+#   if counter == mid:
+#     return 'yes'
+#   else:
+#     return 'no'
+
+
 def is_rainbow(n, A):
+  if A[0] != 1:
+    return 'no'
   mid = n // 2
   j = n - 1
   i = 0
@@ -10,8 +27,8 @@ def is_rainbow(n, A):
     j -= 1
     i += 1
   if i < j or A[i] != 7:
-    return 'No'
-  return 'Yes'
+    return 'no'
+  return 'yes'
 
 def main():
   line = sys.stdin.read()
