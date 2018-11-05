@@ -31,3 +31,4 @@ if __name__ == "__main__":
   array = [10, 12, 16, 21]
   freq = [4, 2, 6, 3]
   print(optimal_bst_dp(array, freq))
+  # test
