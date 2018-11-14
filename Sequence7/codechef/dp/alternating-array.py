@@ -2,7 +2,7 @@ import sys
 
 def get_alt(a, n):
   result = [1] * n
-  for i in range(n - 1, 0, -1):
+  for i in range(n - 2, -1, -1):
     if a[i] * a[i + 1] < 0:
       result[i] = result[i + 1] + 1
     else:
