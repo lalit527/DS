@@ -16,10 +16,18 @@ def seprate_values_01(arr):
 
 def partition_3way(arr):
   n = len(arr)
-  _partition_3way(arr, 0, n - 1)
+  f = s = float('-inf')
+  for i in range(n):
+    if arr[i] > f:
+      s = f
+      f = arr[i]
+    elif arr[i] > s and arr[i] != f:
+      s = arr[i]
+  pivot = s
 
-def _partition_3way(arr, l, r):
-  pivot = 1
+  _partition_3way(arr, 0, n - 1, pivot)
+
+def _partition_3way(arr, l, r, pivot):
   i = l
   lt = l
   gt = r
