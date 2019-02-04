@@ -9,3 +9,6 @@ all_num = [num, square, cube]
 
 for item in zip(all_num[0], all_num[1], all_num[2]):
   print(item)
+
+for item in zip(*all_num):
+  print(item)

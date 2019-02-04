@@ -54,7 +54,7 @@ def main():
     tmp.extend(sys.stdin.readline().split())
     tmp = list(map(lambda x: int(x), tmp))
     data.append(tmp)
-    print(partition_3way(tmp))
+    
   
 if __name__ == "__main__":
   main()

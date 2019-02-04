@@ -5,6 +5,7 @@ def enclosing():
     message = 'enclosing'
 
     def local():
+        # global
         nonlocal no_such_name
         message = 'local'
 
